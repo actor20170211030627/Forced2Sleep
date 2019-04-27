@@ -43,8 +43,8 @@ public class AppLockService extends AccessibilityService {
         System.out.println("AppLockService:onStartCommand");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setTicker("强制睡觉正在运行中...");
-        builder.setSmallIcon(R.drawable.pangu);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.pangu));
+        builder.setSmallIcon(R.drawable.logo);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
         builder.setContentTitle("强制睡觉");
         builder.setContentText("正在运行中...");
         //builder.setContentInfo("Content Info");

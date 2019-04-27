@@ -18,6 +18,7 @@ import com.actor.forced2sleep.utils.MD5Utils;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,12 +51,12 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_enter_pwd);
 
         StatusBarUtil.setColor(this, getResources().getColor(R.color.pink_cc99));
-        ImageView ivIcon = (ImageView) findViewById(R.id.iv_icon);
-        TextView tvName = (TextView) findViewById(R.id.tv_name);
-        TextView tvPackageName = (TextView) findViewById(R.id.tv_packageName);
-        tvCountDown = (TextView) findViewById(R.id.tv_count_down);
-        tvMd5 = (TextView) findViewById(R.id.tv_md5);
-        tvPwd = (TextView) findViewById(R.id.tv_pwd);
+        ImageView ivIcon = findViewById(R.id.iv_icon);
+        TextView tvName = findViewById(R.id.tv_name);
+        TextView tvPackageName = findViewById(R.id.tv_packageName);
+        tvCountDown = findViewById(R.id.tv_count_down);
+        tvMd5 = findViewById(R.id.tv_md5);
+        tvPwd = findViewById(R.id.tv_pwd);
         findViewById(R.id.btn0).setOnClickListener(this);
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
@@ -122,7 +123,7 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void onTick(long millisUntilFinished) {
-                tvCountDown.setText(millisUntilFinished / 1000 + "秒后重置密码");
+                tvCountDown.setText(String.format(Locale.getDefault(), "%02d秒后重置密码", millisUntilFinished / 1000));
             }
 
             @Override
