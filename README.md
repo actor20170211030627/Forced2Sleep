@@ -1,6 +1,10 @@
 # Forced2Sleep
 强制睡觉(forced to sleep) for vivo x6
 
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
 晚上老是想玩手机,这个也许有一点点用...(我的手机是vivo x6)
 <ol>
 <li>晚上22:00及以后禁止使用手机(No use phone at night 22:00 and later)</li>
@@ -12,10 +16,6 @@
 <a href="https://github.com/actor20170211030627/Forced2Sleep/raw/master/forced2sleep-debug.apk">download apk</a>
 <tr/>
 <img src="Screenshots/qr_code.png" width=35%></img>
-
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
-[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## Screenshot
 #### 1.主界面 MainActivity
