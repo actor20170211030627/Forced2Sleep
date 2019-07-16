@@ -150,7 +150,7 @@ public class AppLockService extends AccessibilityService {
     private boolean isNight(){
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        return hour < 8 || hour >= 22;
+        return hour < 8 || hour >= 23;
     }
 
     private void jumpToEnterPwdActivity(String packageName){
