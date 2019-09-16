@@ -13,11 +13,9 @@ import com.actor.forced2sleep.utils.ToastUtils;
 
 
 /**
- * Description: 类的功能描述//Created by : ＄{USER} on ＄{DATE}.[原Date位置]
- * Copyright  : Copyright (c) 2017
+ * Description: 类的功能描述
  * Date       : 2017/5/27 on 12:45.
  */
-
 public class BaseActivity extends AppCompatActivity {
 
     protected ACache aCache = MyApplication.instance.aCache;

@@ -1,5 +1,6 @@
 package com.actor.forced2sleep.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,23 +13,31 @@ import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.service.AppLockService;
 import com.actor.forced2sleep.utils.AccessibilityUtils;
 import com.actor.forced2sleep.utils.ServiceStateUtils;
+import com.actor.forced2sleep.utils.ToastUtils;
 import com.jaeger.library.StatusBarUtil;
 
 public class MainActivity extends BaseActivity {
 
     private Button btn;
     private Snackbar snackbar;
+    private Intent intent;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtil.setTransparentForImageView(this, null);
-        Intent intent = getIntent();
+        activity = this;
+        intent = getIntent();
         if (intent != null) {
             Uri data = intent.getData();
-            if (data != null) System.out.println(data.getAuthority());//传递的内容
-            else System.out.println("data == null,from SplashActivity");
+            if (data != null) {
+                ToastUtils.showDefault(this, data.getAuthority());
+                System.out.println(data.getAuthority());//传递的内容
+            } else {
+                System.out.println("data == null,from SplashActivity");
+            }
         }
 
         /**
@@ -85,6 +94,34 @@ public class MainActivity extends BaseActivity {
                         .show();
             }
         });
+        findViewById(R.id.btn_launch).setOnClickListener(new View.OnClickListener() {//开机启动
+            @Override
+            public void onClick(View v) {
+                intent = new Intent();
+                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                intent.setData(Uri.fromParts("package", getPackageName(), null));
+//                intent.setComponent(ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity"));
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.btn_start_fuzhu).setOnClickListener(new View.OnClickListener() {//开启辅助功能
+            @Override
+            public void onClick(View v) {
+                if (!AccessibilityUtils.isAccessibilitySettingsOn(AppLockService.class)) {
+//                    if (!ServiceStateUtils.isServiceRunning(this, AppLockService.class)) {
+//                    if (!ServiceStateUtils.isAccessibilityRunning(new AppLockService())) {
+                    AccessibilityUtils.openAccessibility(activity);
+                    ToastUtils.showDefault(activity, "请开启辅助功能");
+                } else {
+                    ToastUtils.showDefault(activity, "辅助功能已开启");
+//                    openApk("com.iqoo.secure");//打开i管家
+                }
+                System.out.println("AppLockService运行状态:" + String.valueOf(ServiceStateUtils.isServiceRunning(activity, AppLockService.class)));
+                if (!ServiceStateUtils.isServiceRunning(activity, AppLockService.class)) {
+                    startService(new Intent(activity, AppLockService.class));
+                }
+            }
+        });
     }
 
     @Override
@@ -94,9 +131,9 @@ public class MainActivity extends BaseActivity {
 //        if (!ServiceStateUtils.isServiceRunning(this, AppLockService.class)) {
 //        if (!ServiceStateUtils.isAccessibilityRunning(new AppLockService())) {
             AccessibilityUtils.openAccessibility(this);
-            toast("请开启辅助功能");
+            ToastUtils.showDefault(this, "请开启辅助功能");
         } else {
-            toast("辅助功能已开启");
+            ToastUtils.showDefault(this, "辅助功能已开启");
 //            openApk("com.iqoo.secure");//打开i管家
         }
         System.out.println("AppLockService运行状态:" + String.valueOf(ServiceStateUtils.isServiceRunning(this, AppLockService.class)));
