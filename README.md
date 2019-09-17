@@ -11,7 +11,7 @@
 </ol>
 
 ## Demo
-<a href="https://github.com/actor20170211030627/Forced2Sleep/raw/master/app/build/outputs/apk/debug/forced2sleep-debug.apk">download apk</a>
+<a href="https://github.com/actor20170211030627/Forced2Sleep/raw/master/forced2sleep/build/outputs/apk/debug/forced2sleep-debug.apk">download apk</a>
 <tr/>
 <img src="captures/qr_code.png" width=35%></img>
 
