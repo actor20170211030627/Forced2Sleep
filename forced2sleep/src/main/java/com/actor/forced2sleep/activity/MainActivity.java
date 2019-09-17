@@ -97,11 +97,14 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn_launch).setOnClickListener(new View.OnClickListener() {//开机启动
             @Override
             public void onClick(View v) {
-                intent = new Intent();
-                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-                intent.setData(Uri.fromParts("package", getPackageName(), null));
-//                intent.setComponent(ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity"));
-                startActivity(intent);
+//                intent = new Intent()
+//                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        .setAction("android.settings.APPLICATION_DETAILS_SETTINGS")
+//                        .setData(Uri.fromParts("package", getPackageName(), null));
+////                        .setComponent(ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity"));
+//                startActivity(intent);
+
+                toast("开机启动(未完成,需自己开启)");
             }
         });
         findViewById(R.id.btn_start_fuzhu).setOnClickListener(new View.OnClickListener() {//开启辅助功能
@@ -127,19 +130,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!AccessibilityUtils.isAccessibilitySettingsOn(AppLockService.class)) {
-//        if (!ServiceStateUtils.isServiceRunning(this, AppLockService.class)) {
-//        if (!ServiceStateUtils.isAccessibilityRunning(new AppLockService())) {
-            AccessibilityUtils.openAccessibility(this);
-            ToastUtils.showDefault(this, "请开启辅助功能");
-        } else {
-            ToastUtils.showDefault(this, "辅助功能已开启");
-//            openApk("com.iqoo.secure");//打开i管家
-        }
-        System.out.println("AppLockService运行状态:" + String.valueOf(ServiceStateUtils.isServiceRunning(this, AppLockService.class)));
-        if (!ServiceStateUtils.isServiceRunning(this, AppLockService.class)) {
-            startService(new Intent(this, AppLockService.class));
-        }
     }
 
     private AppLockDao appLockDao = AppLockDao.getInstance(this);

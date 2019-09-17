@@ -11,13 +11,13 @@
 </ol>
 
 ## Demo
-<a href="https://github.com/actor20170211030627/Forced2Sleep/raw/master/forced2sleep-debug.apk">download apk</a>
+<a href="https://github.com/actor20170211030627/Forced2Sleep/raw/master/app/build/outputs/apk/debug/forced2sleep-debug.apk">download apk</a>
 <tr/>
-<img src="Screenshots/qr_code.png" width=35%></img>
+<img src="captures/qr_code.png" width=35%></img>
 
 ## Screenshot
 #### 1.主界面 MainActivity
-<img src="Screenshots/Screenshot_2019-04-27-21-27-21.png" width=35%></img>
+<img src="captures/Screenshot_2019-04-27-21-27-21.png" width=35%></img>
 
 ### 2.输入密码 enter password
-<img src="Screenshots/Screenshot_2019-04-27-21-34-22.png" width=35%></img>
+<img src="captures/Screenshot_2019-04-27-21-34-22.png" width=35%></img>
