@@ -23,11 +23,7 @@ import java.util.Random;
 public class UiUtils {
 
     public static Context getContext() {//googleplay
-        return MyApplication.instance.applicationContext;
-    }
-
-    public static Handler getMainThreadHander() {//googleplay
-        return MyApplication.instance.handler;
+        return MyApplication.instance;
     }
 
     public static int getMainThreadId() {//googleplay

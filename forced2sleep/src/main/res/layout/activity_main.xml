@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="使用说明:"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="@string/instructions"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_launch"
@@ -34,7 +33,7 @@
             android:layout_marginTop="20dp"
             android:background="#cc99"
             android:padding="10dp"
-            android:text="开机启动(未完成,需自己开启)"/>
+            android:text="开机启动(未完成,需自己开启)" />
 
         <Button
             android:id="@+id/btn_white"
@@ -43,7 +42,7 @@
             android:layout_marginTop="20dp"
             android:background="#cc99"
             android:padding="10dp"
-            android:text="白名单(未完成,需自己开启)"/>
+            android:text="白名单" />
 
         <Button
             android:id="@+id/btn_start_fuzhu"
@@ -52,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:background="#cc99"
             android:padding="10dp"
-            android:text="开启辅助功能"/>
+            android:text="开启辅助功能" />
 
         <Button
             android:id="@+id/btn"
@@ -61,6 +60,6 @@
             android:layout_marginTop="20dp"
             android:background="#cc99"
             android:padding="10dp"
-            android:text="确定"/>
+            android:text="确定" />
     </LinearLayout>
 </RelativeLayout>

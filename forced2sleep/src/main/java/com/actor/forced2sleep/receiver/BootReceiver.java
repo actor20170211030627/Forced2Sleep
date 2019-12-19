@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 
-import com.actor.forced2sleep.utils.ServiceStateUtils;
-import com.actor.forced2sleep.utils.ToastUtils;
 import com.actor.forced2sleep.service.AppLockService;
+import com.actor.forced2sleep.utils.ServiceStateUtils;
+import com.actor.myandroidframework.utils.ToastUtils;
 
 public class BootReceiver extends BroadcastReceiver {
 
@@ -18,9 +18,9 @@ public class BootReceiver extends BroadcastReceiver {
                 //跳到系统辅助功能页面
                 //隐式意图
                 context.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-                ToastUtils.show(context,"请开启辅助功能");
+                ToastUtils.show("请开启辅助功能");
             } else {
-                ToastUtils.show(context,"辅助功能已开启");
+                ToastUtils.show("辅助功能已开启");
             }
 		}
     }

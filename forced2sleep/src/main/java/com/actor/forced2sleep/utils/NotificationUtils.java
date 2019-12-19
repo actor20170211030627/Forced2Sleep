@@ -23,7 +23,7 @@ import com.actor.forced2sleep.application.MyApplication;
 
 public class NotificationUtils {
 
-    private static final Context context = MyApplication.instance.applicationContext;
+    private static final Context context = MyApplication.instance;
     private static final int largeIcon = R.drawable.logo;//设置通知左边的大图标
     private static final int smileIcon = R.drawable.logo;//通知右边的小图标
     private static final NotificationManager notificationManager = (NotificationManager) context.

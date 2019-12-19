@@ -51,13 +51,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Michael Yang（www.yangfuhai.com） update at 2013.08.07
- *         <p>
- *         在application中的onCreate中初始化:
- *         注意:不能在fragment中获取activity,否则报错
- *         用法:public static ACache aCache = ACache.get(this);
  *
- *         如果还是有文件丢失的情况,试一下这里:http://blog.csdn.net/zhouqilong970/article/details/78021450
- *         还没有试过.
+ * 在application中的onCreate中初始化: public ACache aCache = ACache.get(this);
+ * @version 1.0 将缓存目录 getCacheDir 改成 getFilesDir, 否则存储会被系统自动清理
  */
 public class ACache {
     public static final int TIME_MINUTE = 60;
@@ -150,7 +146,8 @@ public class ACache {
     }
 
     /**
-     * 读取 String数据(注意:这里有bug,在EDU项目的检查更新发现,检查更新的时候获取的更新json不全(应该是太长的原因,没解决!!!))
+     * FIXME: 2019/12/19
+     * 读取 String数据(注意:这里有bug,在EDU项目的检查更新发现,检查更新的时候获取的更新json不全(还没解决)
      *
      * @param key
      * @return String 数据

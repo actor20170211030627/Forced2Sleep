@@ -17,6 +17,7 @@ import com.actor.forced2sleep.activity.MainActivity;
 import com.actor.forced2sleep.application.MyApplication;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.utils.AccessibilityUtils;
+import com.actor.myandroidframework.utils.LogUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -40,7 +41,7 @@ public class AppLockService extends AccessibilityService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        System.out.println("AppLockService:onStartCommand");
+        LogUtils.error("AppLockService:onStartCommand", true);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setTicker("强制睡觉正在运行中...");
         builder.setSmallIcon(R.drawable.logo);
@@ -84,7 +85,7 @@ public class AppLockService extends AccessibilityService {
     public void onAccessibilityEvent(AccessibilityEvent event) {
         // 此方法是在主线程中回调过来的，所以消息是阻塞执行的
         String packageName = event.getPackageName().toString();//当前页面包名
-        System.out.println(packageName);
+        LogUtils.error(packageName, true);
 
         // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
         AccessibilityUtils.updateEvent(this, event);
@@ -93,7 +94,7 @@ public class AppLockService extends AccessibilityService {
         //页面窗口状态发生变化
         switch (event.getEventType()) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                System.out.println("窗口状态发生变化");
+                LogUtils.error("窗口状态发生变化", true);
                 //如果是i管家
                 if ("com.iqoo.secure".equals(packageName)) {
                     jumpToEnterPwdActivity(packageName);
@@ -106,12 +107,12 @@ public class AppLockService extends AccessibilityService {
                     }
                 }
                 if (nodeInfos != null && nodeInfos.size() > 0) {
-                    System.out.println(nodeInfos.get(0).getClassName());
+                    LogUtils.error(nodeInfos.get(0).getClassName().toString(), true);
                     List<AccessibilityNodeInfo> sets = AccessibilityUtils.findNodesByText("设置");
                     List<AccessibilityNodeInfo> unins = AccessibilityUtils.findNodesByText("卸载");
                     if ((sets != null && sets.size() > 0) || (unins != null && unins.size() > 0)) {
                         boolean b = AccessibilityUtils.clickBackKey();
-                        System.out.println("模拟返回键:" + String.valueOf(b));
+                        LogUtils.error("模拟返回键:" + String.valueOf(b), true);
                         if (b) {
                             jumpToEnterPwdActivity(packageName);
                         }
@@ -119,12 +120,12 @@ public class AppLockService extends AccessibilityService {
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED://设置界面的点击事件
-                System.out.println("界面的点击事件");
+                LogUtils.error("界面的点击事件", true);
                 switch (packageName) {
                     case "com.android.settings"://设置界面
                         if (nodeInfos != null && !nodeInfos.isEmpty()) {
                             boolean b = AccessibilityUtils.clickBackKey();//取消掉ApertDialog
-                            System.out.println(b);
+                            LogUtils.error(String.valueOf(b), true);
                             if (b) {
                                 jumpToEnterPwdActivity(packageName);
                             }
@@ -142,6 +143,12 @@ public class AppLockService extends AccessibilityService {
                         }
                         break;
                 }
+                break;
+            default:
+                /**
+                 * @see AccessibilityEvent.EventType
+                 */
+                LogUtils.error("其余事件: " + event.getEventType(), true);
                 break;
         }
     }

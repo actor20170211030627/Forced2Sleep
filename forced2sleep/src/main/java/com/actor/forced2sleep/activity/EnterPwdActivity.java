@@ -14,13 +14,18 @@ import android.widget.TextView;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.utils.ACache;
-import com.actor.forced2sleep.utils.MD5Utils;
-import com.jaeger.library.StatusBarUtil;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.EncryptUtils;
+import com.blankj.utilcode.util.TimeUtils;
 
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 /**
  * 程序锁输入密码页面
@@ -34,13 +39,23 @@ import java.util.TimerTask;
  * //如果这个Activity是整个Task的根Activity，整个Task将不会出现在最近任务列表中。
  * </activity>
  */
-public class EnterPwdActivity extends BaseActivity implements View.OnClickListener {
+public class EnterPwdActivity extends BaseActivity {
+
+    @BindView(R.id.iv_icon)//图标
+    ImageView ivIcon;
+    @BindView(R.id.tv_name)//名称
+    TextView tvName;
+    @BindView(R.id.tv_package_name)//包名
+    TextView tvPackageName;
+    @BindView(R.id.tv_count_down)//倒计时
+    TextView       tvCountDown;
+    @BindView(R.id.tv_md5)//显示的md5
+    TextView       tvMd5;
+    @BindView(R.id.tv_pwd)//需要输入的密码
+    TextView       tvPwd;
 
     private        String         packageName;
-    private        TextView       tvCountDown;//倒计时
-    private        TextView       tvMd5;
-    private        TextView       tvPwd;
-    private static int            passwordLength;//密码长度
+    private        int            passwordLength;//密码长度
     private        Timer          timer = new Timer();//删除
     private        CountDownTimer countDownTimer;
     //    private boolean isInputBack = false;//是否需要倒叙输入
@@ -49,54 +64,24 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_pwd);
+        ButterKnife.bind(this);
 
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.pink_cc99));
-        ImageView ivIcon = findViewById(R.id.iv_icon);
-        TextView tvName = findViewById(R.id.tv_name);
-        TextView tvPackageName = findViewById(R.id.tv_packageName);
-        tvCountDown = findViewById(R.id.tv_count_down);
-        tvMd5 = findViewById(R.id.tv_md5);
-        tvPwd = findViewById(R.id.tv_pwd);
-        findViewById(R.id.btn0).setOnClickListener(this);
-        findViewById(R.id.btn1).setOnClickListener(this);
-        findViewById(R.id.btn2).setOnClickListener(this);
-        findViewById(R.id.btn3).setOnClickListener(this);
-        findViewById(R.id.btn4).setOnClickListener(this);
-        findViewById(R.id.btn5).setOnClickListener(this);
-        findViewById(R.id.btn6).setOnClickListener(this);
-        findViewById(R.id.btn7).setOnClickListener(this);
-        findViewById(R.id.btn8).setOnClickListener(this);
-        findViewById(R.id.btn9).setOnClickListener(this);
-        findViewById(R.id.btn_ok).setOnClickListener(this);
-        View btnDelete = findViewById(R.id.btn_delete);
-        btnDelete.setOnClickListener(this);
-        btnDelete.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(final View v) {
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (v.isPressed()) {
-                                    deleteText();
-                                } else cancel();//如果不是长按,就取消任务
-                            }
-                        });
-                    }
-                }, 0, 50);
-                return true;
-            }
-        });
         passwordLength = getResources().getInteger(R.integer.passwordLength);
         init();
+        initIntent();
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        initIntent();
+    }
 
+    private void initIntent() {
         //获取AppLockService.java发过来的包名
         packageName = getIntent().getStringExtra("package");
         tvPackageName.setText(packageName);
-
         PackageManager pm = getPackageManager();
         try {
             ApplicationInfo applicationInfo = pm.getApplicationInfo(packageName, 0);
@@ -119,11 +104,11 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
 //        } else tvPwd.setHint("请输入上面所有数字");
 
         //必须new才能重置计时...
-        countDownTimer = new CountDownTimer(getCountDownSecond() * 1000, 1000) {
+        countDownTimer = new CountDownTimer(getCountDownSecond() * 1000, 500) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                tvCountDown.setText(String.format(Locale.getDefault(), "%02d秒后重置密码", millisUntilFinished / 1000));
+                tvCountDown.setText(getStringFormat("%02d秒后重置密码", millisUntilFinished / 1000));
             }
 
             @Override
@@ -134,7 +119,8 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
         }.start();
     }
 
-    @Override
+    @OnClick({R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6,R.id.btn7,
+            R.id.btn8, R.id.btn9, R.id.btn_ok, R.id.btn_delete})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ok://确定
@@ -161,6 +147,20 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
                 break;
         }
     }
+    @OnLongClick(R.id.btn_delete)
+    public boolean onLongClick(View view) {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> {
+                    if (view.isPressed()) {
+                        deleteText();
+                    } else cancel();//如果不是长按,就取消任务
+                });
+            }
+        }, 0, 50);
+        return true;
+    }
 
     //删除文字
     private void deleteText() {
@@ -179,9 +179,8 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
     //获取现在时间md5
     private String getMd5String() {
         Calendar calendar = Calendar.getInstance();
-        return MD5Utils.getMd5("" + calendar.get(Calendar.YEAR) + (calendar.get(Calendar.MONTH) +
-                1) + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.HOUR_OF_DAY) +
-                calendar.get(Calendar.MINUTE));
+        String time = TimeUtils.date2String(calendar.getTime(), "yyyyMMddHHmm");
+        return EncryptUtils.encryptMD5ToString(time);
     }
 
     //提取字符串中数字
@@ -207,18 +206,19 @@ public class EnterPwdActivity extends BaseActivity implements View.OnClickListen
         return needReturn;
     }
 
+    private void JumpToDesk() {
+        ActivityUtils.startHomeActivity();
+        //跳到桌面
+//        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+//        intent.addCategory(Intent.CATEGORY_HOME);
+//        startActivity(intent);
+    }
+
     //拦截手机物理返回键
     @Override
     public void onBackPressed() {
         JumpToDesk();
-        finish();
-    }
-
-    private void JumpToDesk() {
-        //跳到桌面
-        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
+        super.onBackPressed();
     }
 
     @Override
