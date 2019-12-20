@@ -1,19 +1,19 @@
 -- Merging decision tree log ---
 action#com.actor.forced2sleep.startup
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:41:17-67
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:43:17-67
 	android:name
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:41:25-64
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:43:25-64
 manifest
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
 MERGED from [com.github.actor20170211030627:MyAndroidFrameWork:1.2.7] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\be2fcb4db19d5730229752551b33b313\AndroidManifest.xml:2:1-42:12
 MERGED from [com.yanzhenjie:album:2.1.3] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5b261118a004bb74808eb795b948764c\AndroidManifest.xml:17:1-73:12
 MERGED from [com.jaeger.statusbarutil:library:1.5.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\6af375600aaeda6410a9d67791802bb9\AndroidManifest.xml:2:1-13:12
-MERGED from [com.android.support:design:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c8121cc84e92b843ebff7adb4c158724\AndroidManifest.xml:17:1-24:12
 MERGED from [com.ruffian.library:RWidgetHelper:1.1.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\03a4e73cdb6d6639b1523e31ffaa0d27\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:design:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c8121cc84e92b843ebff7adb4c158724\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9112a721415c587702fdafff7931b47d\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-v4:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\f2beeb7b64bfc954eff3f5eb193fbfbc\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\ae20e3f9a9404e1380d55f5ace943471\AndroidManifest.xml:17:1-22:12
@@ -28,7 +28,6 @@ MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\actor\.gradle\
 MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\954c66edcb098a94140f99490806e130\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\063dbdf8cebe262be9a6b468e9b3c728\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\fbf35181079ea1c1584f8b97b876793a\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:transition:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\0feda8c90033c334d7100697c5540e8d\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:loader:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\67e2c84d6c1b7dc808c00e0ea2d1da68\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:viewpager:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\408ff869980080c9f907283f72e2e537\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\76f7e51dc4cc9baa38f37b6457d55e7b\AndroidManifest.xml:17:1-22:12
@@ -37,10 +36,10 @@ MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\actor\.gradl
 MERGED from [com.android.support:customview:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\61c1220a68d5bc028cb7d31c540e41e2\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\a3e5120b8143b0e0e58b0297697e4996\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\404474fcee3ad9110f4379077c1a0f71\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\0feda8c90033c334d7100697c5540e8d\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9b5ffe8ac9e7063da39965cb8299f43f\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\cc86e55618e041efe4f6c80f3c7fbd89\AndroidManifest.xml:17:1-25:12
 MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5b2427c6515a196ff968618fb65b0906\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5ba32185ec8336b02b8802f7b78cd60f\AndroidManifest.xml:17:1-22:12
 MERGED from [com.contrarywind:Android-PickerView:4.1.8] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\39656100799a29349a41bd168a113121\AndroidManifest.xml:2:1-11:12
 MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\1f6b8c69f3c119c33b11504bbcb3bfc0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:documentfile:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\6a6d620badd0e6fef4b2ea42d277f5b8\AndroidManifest.xml:17:1-22:12
@@ -49,6 +48,7 @@ MERGED from [com.android.support:print:28.0.0] C:\Users\actor\.gradle\caches\tra
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\806eb254de08ff7a8825489174760736\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:interpolator:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\ee01ad395932acbcdb0b3f74614d16fc\AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\e1a417b2c93d5f7cdaca639ce3cbd98b\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5ba32185ec8336b02b8802f7b78cd60f\AndroidManifest.xml:17:1-22:12
 MERGED from [com.contrarywind:wheelview:4.0.9] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\4c31cb07a1a80a3b9e578264badb8665\AndroidManifest.xml:2:1-11:12
 MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5f394e009af76457006e45cddbaaf09b\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\ac8bc84d4d4d7dba73007629b120fff5\AndroidManifest.xml:17:1-22:12
@@ -61,22 +61,22 @@ MERGED from [com.blankj:utilcode:1.25.9] C:\Users\actor\.gradle\caches\transform
 MERGED from [com.flyco.dialog:FlycoDialog_Lib:1.3.2] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\39cd8dddc0e51cd4eff5ab262321100d\AndroidManifest.xml:2:1-11:12
 MERGED from [me.jessyan:progressmanager:1.5.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\269b2207b0905505e91d7ee2c2c2304b\AndroidManifest.xml:2:1-11:12
 MERGED from [com.yanzhenjie:mediascanner:1.0.3] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c4c0351a2211c03dfc0c4fc000c19991\AndroidManifest.xml:17:1-25:12
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
-INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
+INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
 	package
 		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:4:5-37
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-84:12
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:1-89:12
 		INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:2:11-69
@@ -107,7 +107,7 @@ ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:14:
 	android:name
 		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:14:22-75
 application
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:17:5-82:19
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:19:5-87:19
 MERGED from [com.github.actor20170211030627:MyAndroidFrameWork:1.2.7] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\be2fcb4db19d5730229752551b33b313\AndroidManifest.xml:30:5-40:19
 MERGED from [com.github.actor20170211030627:MyAndroidFrameWork:1.2.7] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\be2fcb4db19d5730229752551b33b313\AndroidManifest.xml:30:5-40:19
 MERGED from [com.yanzhenjie:album:2.1.3] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5b261118a004bb74808eb795b948764c\AndroidManifest.xml:29:5-71:19
@@ -135,103 +135,107 @@ MERGED from [com.blankj:utilcode:1.25.9] C:\Users\actor\.gradle\caches\transform
 	android:appComponentFactory
 		ADDED from [com.android.support:support-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9b5ffe8ac9e7063da39965cb8299f43f\AndroidManifest.xml:22:18-91
 	android:supportsRtl
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:22:9-35
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:24:9-35
 	android:label
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:21:9-41
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:23:9-41
 	tools:ignore
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:24:9-48
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:26:9-48
 	android:icon
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:20:9-38
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:22:9-38
 	android:allowBackup
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:19:9-36
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:21:9-36
 	android:networkSecurityConfig
 		ADDED from [com.github.actor20170211030627:MyAndroidFrameWork:1.2.7] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\be2fcb4db19d5730229752551b33b313\AndroidManifest.xml:31:9-69
 	android:theme
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:23:9-40
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:25:9-40
 	android:usesCleartextTraffic
 		ADDED from [com.github.actor20170211030627:MyAndroidFrameWork:1.2.7] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\be2fcb4db19d5730229752551b33b313\AndroidManifest.xml:32:9-44
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:18:9-50
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:20:9-50
 activity#com.actor.forced2sleep.activity.SplashActivity
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:26:9-35:20
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:28:9-37:20
 	android:excludeFromRecents
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:28:13-46
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:30:13-46
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:27:13-52
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:29:13-52
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:29:13-34:29
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:31:13-36:29
 action#android.intent.action.MAIN
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:30:17-69
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:32:17-69
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:30:25-66
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:32:25-66
 category#android.intent.category.LAUNCHER
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:32:17-77
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:34:17-77
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:32:27-74
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:34:27-74
 activity#com.actor.forced2sleep.activity.MainActivity
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:37:9-47:20
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:39:9-49:20
 	android:excludeFromRecents
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:39:13-46
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:41:13-46
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:38:13-50
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:40:13-50
 intent-filter#action:name:com.actor.forced2sleep.startup+category:name:android.intent.category.DEFAULT+data:scheme:forced2sleep
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:40:13-46:29
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:42:13-48:29
 category#android.intent.category.DEFAULT
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:43:17-76
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:45:17-76
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:43:27-73
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:45:27-73
 data
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:45:17-55
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:47:17-55
 	android:scheme
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:45:23-52
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:47:23-52
 activity#com.actor.forced2sleep.activity.EnterPwdActivity
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:49:9-52:51
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:51:9-54:51
 	android:excludeFromRecents
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:51:13-46
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:53:13-46
 	android:launchMode
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:52:13-48
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:54:13-48
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:50:13-54
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:52:13-54
 service#com.actor.forced2sleep.service.AppLockService
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:54:9-67:19
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:56:9-69:19
 	android:label
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:56:13-64
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:58:13-64
 	android:priority
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:58:13-42
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:60:13-42
 	android:permission
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:57:13-79
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:59:13-79
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:55:13-51
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:57:13-51
 intent-filter#action:name:android.accessibilityservice.AccessibilityService
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:59:13-61:29
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:61:13-63:29
 action#android.accessibilityservice.AccessibilityService
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:60:17-92
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:62:17-92
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:60:25-89
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:62:25-89
 meta-data#android.accessibilityservice
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:64:13-66:72
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:66:13-68:72
 	android:resource
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:66:17-69
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:68:17-69
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:65:17-60
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:67:17-60
 receiver#com.actor.forced2sleep.receiver.BootReceiver
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:69:9-75:20
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:71:9-77:20
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:69:19-56
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:71:19-56
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:72:13-74:29
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:74:13-76:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:73:17-79
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:75:17-79
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:73:25-76
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:75:25-76
 service#com.actor.forced2sleep.service.ToastNoticeService
-ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:78:9-81:39
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:80:9-83:39
 	android:enabled
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:80:13-35
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:82:13-35
 	android:exported
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:81:13-36
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:83:13-36
 	android:name
-		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:79:13-55
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:81:13-55
+service#com.actor.forced2sleep.service.CheckUpdateService
+ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:86:9-63
+	android:name
+		ADDED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml:86:18-60
 uses-sdk
 INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from F:\Android\Forced2Sleep\forced2sleep\src\main\AndroidManifest.xml
@@ -242,10 +246,10 @@ MERGED from [com.yanzhenjie:album:2.1.3] C:\Users\actor\.gradle\caches\transform
 MERGED from [com.yanzhenjie:album:2.1.3] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5b261118a004bb74808eb795b948764c\AndroidManifest.xml:20:5-22:41
 MERGED from [com.jaeger.statusbarutil:library:1.5.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\6af375600aaeda6410a9d67791802bb9\AndroidManifest.xml:7:5-9:41
 MERGED from [com.jaeger.statusbarutil:library:1.5.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\6af375600aaeda6410a9d67791802bb9\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:design:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c8121cc84e92b843ebff7adb4c158724\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:design:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c8121cc84e92b843ebff7adb4c158724\AndroidManifest.xml:20:5-44
 MERGED from [com.ruffian.library:RWidgetHelper:1.1.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\03a4e73cdb6d6639b1523e31ffaa0d27\AndroidManifest.xml:7:5-9:41
 MERGED from [com.ruffian.library:RWidgetHelper:1.1.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\03a4e73cdb6d6639b1523e31ffaa0d27\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c8121cc84e92b843ebff7adb4c158724\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\c8121cc84e92b843ebff7adb4c158724\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9112a721415c587702fdafff7931b47d\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9112a721415c587702fdafff7931b47d\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\f2beeb7b64bfc954eff3f5eb193fbfbc\AndroidManifest.xml:20:5-44
@@ -274,8 +278,6 @@ MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\actor\
 MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\063dbdf8cebe262be9a6b468e9b3c728\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\fbf35181079ea1c1584f8b97b876793a\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\fbf35181079ea1c1584f8b97b876793a\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\0feda8c90033c334d7100697c5540e8d\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\0feda8c90033c334d7100697c5540e8d\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:loader:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\67e2c84d6c1b7dc808c00e0ea2d1da68\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:loader:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\67e2c84d6c1b7dc808c00e0ea2d1da68\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:viewpager:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\408ff869980080c9f907283f72e2e537\AndroidManifest.xml:20:5-44
@@ -292,14 +294,14 @@ MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\actor\.grad
 MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\a3e5120b8143b0e0e58b0297697e4996\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\404474fcee3ad9110f4379077c1a0f71\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\404474fcee3ad9110f4379077c1a0f71\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\0feda8c90033c334d7100697c5540e8d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\0feda8c90033c334d7100697c5540e8d\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9b5ffe8ac9e7063da39965cb8299f43f\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\9b5ffe8ac9e7063da39965cb8299f43f\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\cc86e55618e041efe4f6c80f3c7fbd89\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\cc86e55618e041efe4f6c80f3c7fbd89\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5b2427c6515a196ff968618fb65b0906\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5b2427c6515a196ff968618fb65b0906\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5ba32185ec8336b02b8802f7b78cd60f\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5ba32185ec8336b02b8802f7b78cd60f\AndroidManifest.xml:20:5-44
 MERGED from [com.contrarywind:Android-PickerView:4.1.8] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\39656100799a29349a41bd168a113121\AndroidManifest.xml:7:5-9:41
 MERGED from [com.contrarywind:Android-PickerView:4.1.8] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\39656100799a29349a41bd168a113121\AndroidManifest.xml:7:5-9:41
 MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\1f6b8c69f3c119c33b11504bbcb3bfc0\AndroidManifest.xml:20:5-44
@@ -316,6 +318,8 @@ MERGED from [com.android.support:interpolator:28.0.0] C:\Users\actor\.gradle\cac
 MERGED from [com.android.support:interpolator:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\ee01ad395932acbcdb0b3f74614d16fc\AndroidManifest.xml:20:5-44
 MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\e1a417b2c93d5f7cdaca639ce3cbd98b\AndroidManifest.xml:5:5-7:41
 MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\e1a417b2c93d5f7cdaca639ce3cbd98b\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5ba32185ec8336b02b8802f7b78cd60f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5ba32185ec8336b02b8802f7b78cd60f\AndroidManifest.xml:20:5-44
 MERGED from [com.contrarywind:wheelview:4.0.9] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\4c31cb07a1a80a3b9e578264badb8665\AndroidManifest.xml:7:5-9:41
 MERGED from [com.contrarywind:wheelview:4.0.9] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\4c31cb07a1a80a3b9e578264badb8665\AndroidManifest.xml:7:5-9:41
 MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\actor\.gradle\caches\transforms-2\files-2.1\5f394e009af76457006e45cddbaaf09b\AndroidManifest.xml:20:5-44

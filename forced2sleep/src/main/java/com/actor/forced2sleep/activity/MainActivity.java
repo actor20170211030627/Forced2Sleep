@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.service.AppLockService;
+import com.actor.forced2sleep.service.CheckUpdateService;
 import com.actor.forced2sleep.service.ToastNoticeService;
 import com.actor.forced2sleep.utils.AccessibilityUtils;
 import com.actor.forced2sleep.utils.LaunchSelfUtils;
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity {
         addPackageName("com.tencent.mobileqq");//QQ
         addPackageName("longbin.helloworld");//计算器
 
+        startService(new Intent(this, CheckUpdateService.class));//检查更新
         startService(new Intent(this, ToastNoticeService.class));
     }
 
@@ -143,5 +145,11 @@ public class MainActivity extends BaseActivity {
 
     private void openApk(String packageName) {
         AppUtils.launchApp(packageName);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, CheckUpdateService.class));
     }
 }

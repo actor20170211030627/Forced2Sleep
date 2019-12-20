@@ -63,8 +63,13 @@ public class LaunchSelfUtils {
 
         } else if (/*getMobileType().equals("vivo")*/RomUtils.isVivo()) {// VIVO测试通过
 
-            componentName = ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity");
-//            componentName = ComponentName.unflattenFromString("com.iqoo.secure/.ui.phoneoptimize.BgStartUpManager");
+            //"自启动管理"页面, 打开被拒绝
+            componentName = ComponentName.unflattenFromString("com.iqoo.secure/.ui.phoneoptimize.BgStartUpManager");
+            //"权限管理"页面, 打开被拒绝
+//            componentName = ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity");
+            //"软件管理"界面, 打开被拒绝
+//            componentName = ComponentName.unflattenFromString("com.iqoo.secure/.appmanager.AppManagerActivity");
+
 
         } else if (/*getMobileType().equals("Meizu")*/RomUtils.isMeizu()) {//万恶的魅族
 

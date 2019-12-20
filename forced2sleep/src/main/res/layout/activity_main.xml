@@ -51,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:background="#cc99"
             android:padding="10dp"
-            android:text="开启辅助功能" />
+            android:text="开启辅助功能(强制输入密码模式)" />
 
         <Button
             android:id="@+id/btn"

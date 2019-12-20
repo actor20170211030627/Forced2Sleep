@@ -13,7 +13,6 @@ import android.support.annotation.NonNull;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
-import com.actor.myandroidframework.utils.LogUtils;
 import com.actor.myandroidframework.utils.PermissionRequestUtils;
 import com.actor.myandroidframework.utils.ToastUtils;
 import com.blankj.utilcode.util.ScreenUtils;
@@ -82,6 +81,8 @@ public class ToastNoticeService extends Service {
         }, 0, 1000);
     }
 
+    //<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+    //        tools:ignore="ProtectedPermissions" />
     private String getProcessName() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             long ts = System.currentTimeMillis();
@@ -99,10 +100,7 @@ public class ToastNoticeService extends Service {
                         usageStats = usageStats1;
                     }
                 }
-                if (usageStats != null) {
-                    System.out.println(usageStats.getPackageName());
-                    return usageStats.getPackageName();
-                }
+                return usageStats.getPackageName();
             }
         } else {
 //        String foregroundProcessName = ProcessUtils.getForegroundProcessName();//不起作用
@@ -113,11 +111,16 @@ public class ToastNoticeService extends Service {
         return null;
     }
 
-    //是否是夜晚
+    //是否是夜晚(22:30-23:59, && 00:00-7: 30)
     private boolean isNight(){
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        return hour < 8 || hour >= 23;
+        int minute = calendar.get(Calendar.MINUTE);
+        if (hour <= 7 || hour >= 22) {
+            if (hour <= 7) return minute < 30;
+            return minute > 30;
+        }
+        return false;
     }
 
     @Override
