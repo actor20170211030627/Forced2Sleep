@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.provider.Settings;
 
 import com.actor.forced2sleep.service.AppLockService;
+import com.actor.forced2sleep.service.ToastNoticeService;
 import com.actor.forced2sleep.utils.ServiceStateUtils;
 import com.actor.myandroidframework.utils.ToastUtils;
 
@@ -22,7 +23,8 @@ public class BootReceiver extends BroadcastReceiver {
             } else {
                 ToastUtils.show("辅助功能已开启");
             }
-		}
+        }
+        context.startService(new Intent(context, ToastNoticeService.class));
     }
 
 
