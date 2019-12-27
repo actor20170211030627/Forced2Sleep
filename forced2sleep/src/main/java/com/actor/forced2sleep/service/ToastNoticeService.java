@@ -117,8 +117,9 @@ public class ToastNoticeService extends Service {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         if (hour <= 7 || hour >= 22) {
-            if (hour <= 7) return minute < 30;
-            return minute > 30;
+            if (hour == 7) return minute < 30;
+            if (hour == 22) return minute > 30;
+            return true;
         }
         return false;
     }
