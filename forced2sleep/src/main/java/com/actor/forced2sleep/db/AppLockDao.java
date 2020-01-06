@@ -95,6 +95,7 @@ public class AppLockDao {
      * 查询数据库
      */
     public synchronized boolean find(String packageName) {
+        if (packageName == null) return false;//要判空, 否则报错
         SQLiteDatabase database = mHelper.getWritableDatabase();
 
         Cursor cursor = database.query("applock", null, "package=?", new

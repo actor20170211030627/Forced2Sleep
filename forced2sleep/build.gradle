@@ -6,8 +6,8 @@ android {
         applicationId "com.actor.forced2sleep"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 19122401
-        versionName "1.1.1"
+        versionCode 20010601
+        versionName "1.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
