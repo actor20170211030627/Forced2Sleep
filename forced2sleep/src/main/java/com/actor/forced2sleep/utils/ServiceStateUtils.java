@@ -36,19 +36,17 @@ public class ServiceStateUtils {
 
     private static AccessibilityServiceInfo accessibilityServiceInfo;
 
-    //判断服务有没有运行     <? extends Service>:加这一句,只有服务类才能判断,否则不能判断
+    //判断服务有没有运行
     public static boolean isServiceRunning(Context context, Class<? extends Service> clazz) {
         /**
          * ActivityManager:活动管理器, 和activity组件没有什么关系
          * 管理系统所有正在活动的东西
          */
         //getSystemService(@ServiceName @NonNull String name);
-        ActivityManager systemService = (ActivityManager) context.getSystemService(Context
-                .ACTIVITY_SERVICE);
+        ActivityManager systemService = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
         //获取正在运行的服务,最多返回100个
-        List<ActivityManager.RunningServiceInfo> runningServices = systemService
-                .getRunningServices(100);
+        List<ActivityManager.RunningServiceInfo> runningServices = systemService.getRunningServices(100);
 
         //遍历每一个正在运行的服务对象    runningServices.for
         for (ActivityManager.RunningServiceInfo runningService : runningServices) {
