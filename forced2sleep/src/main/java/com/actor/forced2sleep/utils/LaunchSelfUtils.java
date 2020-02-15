@@ -12,14 +12,9 @@ import com.actor.myandroidframework.utils.ToastUtils;
 import com.blankj.utilcode.util.RomUtils;
 
 /**
- * Description: 跳转手机"自启页面"工具类
+ * Description: 跳转手机"自启页面"工具类, https://www.jianshu.com/p/9d729147cea9
  * Author     : 李大发
  * Date       : 2019/12/19 on 17:18
- * <p>
- * 作者：广陵墨玉刀
- * 链接：https://www.jianshu.com/p/9d729147cea9
- * 来源：简书
- * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  *
  * @version 1.0
  */
