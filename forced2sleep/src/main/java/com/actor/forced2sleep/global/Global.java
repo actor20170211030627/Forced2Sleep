@@ -22,4 +22,5 @@ public class Global {
             "/build/outputs/apk/debug/app-debug.apk";
 
     public static final String APP_SKIP_10MIN = "APP_SKIP_10MIN";//跳过10分钟的app
+    public static final String PACKAGE_NAME = "PACKAGE_NAME";
 }

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actor.forced2sleep.R;
+import com.actor.forced2sleep.global.Global;
 import com.actor.forced2sleep.utils.ACache;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.EncryptUtils;
@@ -80,7 +81,7 @@ public class EnterPwdActivity extends BaseActivity {
 
     private void initIntent() {
         //获取AppLockService.java发过来的包名
-        packageName = getIntent().getStringExtra("package");
+        packageName = getIntent().getStringExtra(Global.PACKAGE_NAME);
         tvPackageName.setText(packageName);
         PackageManager pm = getPackageManager();
         try {

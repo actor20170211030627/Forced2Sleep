@@ -16,8 +16,10 @@ import com.actor.forced2sleep.activity.EnterPwdActivity;
 import com.actor.forced2sleep.activity.MainActivity;
 import com.actor.forced2sleep.application.MyApplication;
 import com.actor.forced2sleep.db.AppLockDao;
+import com.actor.forced2sleep.global.Global;
 import com.actor.forced2sleep.utils.AccessibilityUtils;
 import com.actor.myandroidframework.utils.LogUtils;
+import com.blankj.utilcode.util.ActivityUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -161,14 +163,11 @@ public class AppLockService extends AccessibilityService {
     }
 
     private void jumpToEnterPwdActivity(String packageName){
-        Intent intent = new Intent(this, EnterPwdActivity.class);
-        intent.putExtra("package", packageName);
+        //edited 暂时不跳转
+        if (true) return;
 
-        //如果从service中启动activity, 需要加标记,FLAG_ACTIVITY_NEW_TASK, 表示新建一个任务栈
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //异常:Calling startActivity() from outside of an Activity  context requires the
-        // FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent);
+        ActivityUtils.startActivity(new Intent(this, EnterPwdActivity.class)
+                .putExtra(Global.PACKAGE_NAME, packageName));
     }
 
     @Override
