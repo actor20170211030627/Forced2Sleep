@@ -15,9 +15,10 @@ public class Global {
             "forced2sleep" +//模块名
             "/build/outputs/apk/debug/output.json";
 
-    public static final String DOWNLOAD_URL = "https://gitee.com/actor2017/" +
+    public static final String DOWNLOAD_URL = "https://raw.githubusercontent.com/" +
+            "actor20170211030627/" +
             "Forced2Sleep" +
-            "/raw/master/" +
+            "/master/" +
             "forced2sleep" +
             "/build/outputs/apk/debug/" +
             "forced2sleep" +

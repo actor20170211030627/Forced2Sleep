@@ -61,5 +61,15 @@
             android:background="#cc99"
             android:padding="10dp"
             android:text="确定" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:autoLink="all"
+            android:background="#cc99"
+            android:padding="10dp"
+            android:text="View on Github:\n
+            https://github.com/actor20170211030627/Forced2Sleep" />
     </LinearLayout>
 </RelativeLayout>
