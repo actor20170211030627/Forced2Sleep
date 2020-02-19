@@ -19,7 +19,9 @@ public class Global {
             "Forced2Sleep" +
             "/raw/master/" +
             "forced2sleep" +
-            "/build/outputs/apk/debug/app-debug.apk";
+            "/build/outputs/apk/debug/" +
+            "forced2sleep" +
+            "-debug.apk";
 
     public static final String APP_SKIP_10MIN = "APP_SKIP_10MIN";//跳过10分钟的app
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
