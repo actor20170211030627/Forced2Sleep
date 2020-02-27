@@ -21,7 +21,6 @@ import com.actor.forced2sleep.utils.AccessibilityUtils;
 import com.actor.myandroidframework.utils.LogUtils;
 import com.blankj.utilcode.util.ActivityUtils;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -103,7 +102,7 @@ public class AppLockService extends AccessibilityService {
                     break;
                 }
                 //如果是晚上,如果没有在白名单内,已经加锁
-                if (isNight() && !mDao.find(packageName)) {
+                if (Global.isSleepTime() && !mDao.find(packageName)) {
                     if (MyApplication.instance.aCache.getAsString(packageName) == null) {
                         jumpToEnterPwdActivity(packageName);
                     }
@@ -138,7 +137,7 @@ public class AppLockService extends AccessibilityService {
                         break;
                     default:
                         //如果是晚上,如果没有在白名单内,已经加锁
-                        if (isNight() && !mDao.find(packageName)) {
+                        if (Global.isSleepTime() && !mDao.find(packageName)) {
                             if (MyApplication.instance.aCache.getAsString(packageName) == null) {
                                 jumpToEnterPwdActivity(packageName);
                             }
@@ -153,13 +152,6 @@ public class AppLockService extends AccessibilityService {
                 LogUtils.error("其余事件: " + event.getEventType(), true);
                 break;
         }
-    }
-
-    //是否是夜晚
-    private boolean isNight(){
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        return hour < 8 || hour >= 23;
     }
 
     private void jumpToEnterPwdActivity(String packageName){

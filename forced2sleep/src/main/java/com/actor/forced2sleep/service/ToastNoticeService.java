@@ -13,11 +13,11 @@ import android.support.annotation.NonNull;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
+import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.utils.PermissionRequestUtils;
 import com.actor.myandroidframework.utils.ToastUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -73,7 +73,7 @@ public class ToastNoticeService extends Service {
             @Override
             public void run() {
                 String packageName = getProcessName();
-                if (isNight() && !mDao.find(packageName)) {
+                if (Global.isSleepTime() && !mDao.find(packageName)) {
                     boolean screenLock = ScreenUtils.isScreenLock();//是否锁屏
                     if (!screenLock) ToastUtils.show(toastContent);
                 }
@@ -109,19 +109,6 @@ public class ToastNoticeService extends Service {
             return manager.getRunningTasks(1).get(0).topActivity.getPackageName();
         }
         return null;
-    }
-
-    //是否是夜晚(22:30-23:59, && 00:00-7: 30)
-    private boolean isNight(){
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        if (hour <= 7 || hour >= 22) {
-            if (hour == 7) return minute < 30;
-            if (hour == 22) return minute > 30;
-            return true;
-        }
-        return false;
     }
 
     @Override

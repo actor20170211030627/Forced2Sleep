@@ -1,5 +1,7 @@
 package com.actor.forced2sleep.global;
 
+import java.util.Calendar;
+
 /**
  * Description: 本类是存放全局变量和参数
  * Copyright  : Copyright (c) 2015
@@ -23,6 +25,25 @@ public class Global {
             "/build/outputs/apk/debug/" +
             "forced2sleep" +
             "-debug.apk";
+
+    //是否是'睡觉/午休'时间
+    public static boolean isSleepTime(){
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        if (hour < 7 || hour > 22) return true;//[00:00, 07:00) || (22:00, 23:59]
+
+        //[07:00 ~ 22:00]
+        switch (hour) {
+            case 7:
+                return minute < 30;//[07:00 ~ 07:30)
+            case 13:
+                return minute < 30;//[13:00 ~ 13:30)
+            case 22:
+                return minute > 30;//(22:30 ~ 23:00]
+        }
+        return false;
+    }
 
     public static final String APP_SKIP_10MIN = "APP_SKIP_10MIN";//跳过10分钟的app
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
