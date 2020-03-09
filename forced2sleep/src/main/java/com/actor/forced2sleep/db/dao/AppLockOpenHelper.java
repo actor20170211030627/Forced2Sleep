@@ -14,15 +14,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AppLockOpenHelper extends SQLiteOpenHelper {
 
     public AppLockOpenHelper(Context context) {
-        //Context context, String name, CursorFactory factory, int version
-        super(context, "applock.db", null, 1);
+        super(context, "applock.db", null, 1);//CursorFactory factory, int version
     }
 
+    //创建表 保存已加锁app的包名
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //创建表 保存已加锁app的包名, package,
-        String sql = "create table applock(_id integer primary key autoincrement, package " +
-                "varchar(50))";
+        String sql = "create table applock(" +
+                "_id integer primary key autoincrement," +
+                " package varchar(50))";
         db.execSQL(sql);
     }
 

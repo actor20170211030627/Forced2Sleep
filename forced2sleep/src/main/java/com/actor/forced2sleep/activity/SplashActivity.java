@@ -15,7 +15,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        finish();
+        onBackPressed();
         startActivity(new Intent(this, MainActivity.class));
     }
 }

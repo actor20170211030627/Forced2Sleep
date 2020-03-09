@@ -104,10 +104,6 @@ public class ServiceStateUtils {
     /**
      * 获取service(如果存在)
      *
-     * @param mContext
-     * @param clazz
-     * @return 如果存在返回service否则返回null
-     * <p>
      * 示例用法:
      * serviceManager = new ServiceManager(this);
      * serviceManager.setNotificationIcon(R.drawable.ic_launcher);
@@ -127,13 +123,11 @@ public class ServiceStateUtils {
      *     serviceManager.setAlias("xuyusong");
      * }
      */
-    public static ActivityManager.RunningServiceInfo getServiceIfExist(Context mContext, Class<?
+    public static ActivityManager.RunningServiceInfo getServiceIfExist(Context context, Class<?
             extends Service> clazz) {
 
-        ActivityManager activityManager = (ActivityManager) mContext.getSystemService(Context
-                .ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> serviceList = activityManager.getRunningServices
-                (100);
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> serviceList = activityManager.getRunningServices(100);
 
         for (int i = 0; i < serviceList.size(); i++) {
             if (serviceList.get(i).service.getClassName().equals(clazz.getName())) {

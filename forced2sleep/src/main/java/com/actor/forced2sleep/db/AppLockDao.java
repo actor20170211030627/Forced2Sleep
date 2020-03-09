@@ -30,12 +30,12 @@ public class AppLockDao {
     //private static BlackNumberDao mInstance = new BlackNumberDao(); 饿汉模式
     private static AppLockDao mInstance = null;//懒汉模式
 
-    private AppLockDao(Context ctx) {
-        mHelper = new AppLockOpenHelper(ctx);
+    private AppLockDao(Context context) {
+        mHelper = new AppLockOpenHelper(context);
     }
 
     //A, B, C
-    public static AppLockDao getInstance(Context ctx) {
+    public static AppLockDao getInstance(Context context) {
         //懒汉模式
         //A, B, C
         if (mInstance == null) {
@@ -44,18 +44,17 @@ public class AppLockDao {
                 //B, C
                 if (mInstance == null) {
                     //A
-                    mInstance = new AppLockDao(ctx);
+                    mInstance = new AppLockDao(context);
                 }
             }
         }
-
         return mInstance;
     }
 
     /**
      * 增加数据库
      */
-    public synchronized boolean add(String packageName) {
+    public synchronized long add(String packageName) {
         //获取数据库对象
         SQLiteDatabase database = mHelper.getWritableDatabase();
 
@@ -64,27 +63,22 @@ public class AppLockDao {
         values.put("package", packageName);
 
         //执行插入操作, 返回新插入的行id, 如果-1表示失败
-        long insert = database.insert("applock", null, values);
-
-        //关闭数据库
-        database.close();
-
-        return insert != -1;
+        long id = database.insert("applock", null, values);//String table, String nullColumnHack
+        database.close();//关闭数据库
+        return id;
     }
 
     /**
      * 删除数据库
      */
-    public synchronized boolean delete(String packageName) {
+    public synchronized int delete(String packageName) {
         //获取数据库对象
         SQLiteDatabase database = mHelper.getWritableDatabase();
 
         //返回值代表删除后影响的行数, 如果是0,表示没有删除任何数据
-        int delete = database.delete("applock", "package=?", new String[]{packageName});
-
+        int rows = database.delete("applock", "package=?", new String[]{packageName});
         database.close();
-
-        return delete != 0;
+        return rows;
     }
 
     //查询某个app是否已加锁
@@ -98,8 +92,11 @@ public class AppLockDao {
         if (packageName == null) return false;//要判空, 否则报错
         SQLiteDatabase database = mHelper.getWritableDatabase();
 
-        Cursor cursor = database.query("applock", null, "package=?", new
-                String[]{packageName}, null, null, null);
+        //String table, String[] columns, String selection,
+        //            String[] selectionArgs, String groupBy, String having,
+        //            String orderBy
+        Cursor cursor = database.query("applock", null, "package=?",
+                new String[]{packageName}, null, null, null);
 
         boolean exist = false;
 
@@ -108,11 +105,9 @@ public class AppLockDao {
                 //return true;
                 exist = true;
             }
+            cursor.close();
         }
-
-        cursor.close();
         database.close();
-
         return exist;
     }
 }

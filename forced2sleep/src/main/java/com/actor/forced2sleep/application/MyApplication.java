@@ -1,8 +1,13 @@
 package com.actor.forced2sleep.application;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.actor.forced2sleep.activity.SplashActivity;
 import com.actor.forced2sleep.utils.ACache;
 import com.actor.myandroidframework.application.ActorApplication;
 
@@ -53,5 +58,11 @@ public class MyApplication extends ActorApplication {
     @Override
     protected void onUncaughtException(Thread thread, Throwable e) {
         e.printStackTrace();
+        Intent intent = new Intent(this, SplashActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent restartIntent = PendingIntent.getActivity(this, 0, intent, 0);//PendingIntent.FLAG_...
+        AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent);//1000:1秒钟后重启应用
+        System.exit(-1);//退出
     }
 }

@@ -130,7 +130,7 @@ public class EnterPwdActivity extends BaseActivity {
                     if (text.equals(getStringNum(getMd5String(), passwordLength))) {
                         aCache.put(packageName, packageName, ACache.TIME_MINUTE * 1);
                         toast("这个App有效时间为1分钟");
-                        finish();
+                        onBackPressed();
                     } else {
                         init();
                         toast("密码错误:" + tvPwd.getHint());
