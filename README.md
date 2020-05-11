@@ -1,7 +1,7 @@
 # Forced2Sleep
  <ul>
      <li><a href="https://github.com/actor20170211030627/Forced2Sleep">Github</a></li>
-     <li><a href="https://gitee.com/actor2017/Forced2Sleep">Gitee码云</a></li>
+     <li><a href="https://gitee.com/actor20170211030627/Forced2Sleep">Gitee码云(国内网速更快)</a></li>
  </ul>
 
 强制睡觉(forced to sleep) for vivo x6

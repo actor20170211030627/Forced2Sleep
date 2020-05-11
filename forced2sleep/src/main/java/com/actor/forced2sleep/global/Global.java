@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 public class Global {
 
-    public static final String CHECK_UPDATE = "https://gitee.com/actor2017/" +
+    public static final String CHECK_UPDATE = "https://gitee.com/actor20170211030627/" +
             "Forced2Sleep" +//项目名
             "/raw/master/" +
             "forced2sleep" +//模块名
@@ -31,7 +31,10 @@ public class Global {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        if (hour < 7 || hour >= 22) return true;//[00:00, 07:00) || (22:00, 23:59]
+        //[00:00, 07:00) || (22:00, 23:59]
+        if (hour < 7 || hour >= 22) {
+            return true;
+        }
 
         //[07:00 ~ 22:00]
         switch (hour) {
@@ -41,8 +44,9 @@ public class Global {
                 return minute < 30;//[13:00 ~ 13:30)
             case 22:
                 return minute > 30;//(22:30 ~ 23:00]
+            default:
+                return false;
         }
-        return false;
     }
 
     public static final String APP_SKIP_10MIN = "APP_SKIP_10MIN";//跳过10分钟的app
