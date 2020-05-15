@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 /**
  * Description: 本类是存放全局变量和参数
- * Copyright  : Copyright (c) 2015
  * Company    : 公司名称
  * Date       : 2017/1/14 on 21:33.
  */

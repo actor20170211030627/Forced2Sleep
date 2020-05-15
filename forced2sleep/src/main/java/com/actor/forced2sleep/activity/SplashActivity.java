@@ -6,10 +6,8 @@ import android.support.annotation.Nullable;
 
 /**
  * Description: 类的描述
- * Copyright  : Copyright (c) 2018
  * Date       : 2018/11/15 on 23:33
  */
-
 public class SplashActivity extends BaseActivity {
 
     @Override

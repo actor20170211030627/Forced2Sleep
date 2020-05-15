@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.global.Global;
-import com.actor.forced2sleep.utils.ACache;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.TimeUtils;
@@ -128,7 +127,7 @@ public class EnterPwdActivity extends BaseActivity {
                 String text = getText(tvPwd);
                 if (!TextUtils.isEmpty(text)) {
                     if (text.equals(getStringNum(getMd5String(), passwordLength))) {
-                        aCache.put(packageName, packageName, ACache.TIME_MINUTE * 1);
+                        aCache.put(packageName, packageName, 60);
                         toast("这个App有效时间为1分钟");
                         onBackPressed();
                     } else {

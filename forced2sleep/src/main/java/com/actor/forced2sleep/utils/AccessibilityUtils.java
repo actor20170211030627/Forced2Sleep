@@ -1,15 +1,18 @@
 package com.actor.forced2sleep.utils;
 
 import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.actor.forced2sleep.application.MyApplication;
+import com.actor.myandroidframework.utils.ConfigUtils;
 
 import java.io.File;
 import java.util.List;
@@ -21,7 +24,7 @@ import java.util.List;
 
 public class AccessibilityUtils {
 
-    private static Context context = MyApplication.instance;
+    private static Context context = ConfigUtils.APPLICATION;
     private static AccessibilityEvent accessibilityEvent;
     private static AccessibilityService accessibilityService;
 
@@ -130,7 +133,6 @@ public class AccessibilityUtils {
      * 判断是否有辅助功能权限
      */
     public static boolean isAccessibilitySettingsOn(Class<? extends AccessibilityService> service) {
-
         int accessibilityEnabled = 0;
         try {
             accessibilityEnabled = Settings.Secure.getInt(context.getApplicationContext()
@@ -138,21 +140,17 @@ public class AccessibilityUtils {
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
-
-        String packageName = context.getPackageName();
-        //原来是这么写的:getClass().getCanonicalName()
-        String serviceStr = packageName + File.separator + service.getName();
-        System.out.println("service:" + serviceStr);
         if (accessibilityEnabled == 1) {
+            //原来是这么写的:getClass().getCanonicalName()
+            String serviceStr = context.getPackageName() + File.separator + service.getName();
             TextUtils.SimpleStringSplitter stringSplitter = new TextUtils.SimpleStringSplitter(':');
-
             String settingValue = Settings.Secure.getString(context.getApplicationContext()
                     .getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
             if (settingValue != null) {
                 stringSplitter.setString(settingValue);
                 while (stringSplitter.hasNext()) {
                     String accessabilityService = stringSplitter.next();
-                    System.out.println("accessabilityService:" + accessabilityService);
+                    System.out.println("accessabilityService: " + accessabilityService);
                     if (accessabilityService.equalsIgnoreCase(serviceStr)) {
                         return true;
                     }
@@ -160,6 +158,36 @@ public class AccessibilityUtils {
             }
         }
         return false;
+    }
+
+
+    /**
+     * 判断当前辅助功能服务是否正在运行, 这儿来自抢红包app里的判断!
+     * */
+    @Deprecated
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static boolean isAccessibilityRunning(Class<? extends AccessibilityService> serviceClass) {
+        if(serviceClass == null) {
+            return false;
+        }
+        AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        //明明已经开启了辅助功能, 这儿list还是empty
+        List<AccessibilityServiceInfo> list = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
+        //accessibilityServiceInfo 第2次判断的时候会报错. 就算直接new 也会这样...
+        AccessibilityServiceInfo accessibilityServiceInfo = getAccessibilityServiceInfo();
+        for (AccessibilityServiceInfo info : list) {
+            if (TextUtils.equals(info.getId(), accessibilityServiceInfo.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static AccessibilityServiceInfo accessibilityServiceInfo;
+    private static AccessibilityServiceInfo getAccessibilityServiceInfo(){
+        if (accessibilityServiceInfo == null) {
+            accessibilityServiceInfo = new AccessibilityServiceInfo();
+        }
+        return accessibilityServiceInfo;
     }
 
     /**

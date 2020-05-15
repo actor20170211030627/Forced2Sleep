@@ -6,11 +6,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.actor.forced2sleep.application.MyApplication;
+import com.actor.myandroidframework.utils.ConfigUtils;
 
 import java.util.Random;
 
@@ -23,28 +22,7 @@ import java.util.Random;
 public class UiUtils {
 
     public static Context getContext() {//googleplay
-        return MyApplication.instance;
-    }
-
-    public static int getMainThreadId() {//googleplay
-        return MyApplication.instance.mainThreadId;
-    }
-	    //获取字符串资源
-    public static String getString(int resId) {//googleplay
-        return getContext().getResources().getString(resId);
-    }
-	    //获取字符串数组
-    public static String[] getStringArray(int resId) {//googleplay
-        return getContext().getResources().getStringArray(resId);
-    }
-	    //获取Drawable
-    public static Drawable getDrawable(int resId) {//googleplay
-        return getContext().getResources().getDrawable(resId);
-    }
-
-    //获取color
-    public static int getColor(int resId) {//googleplay
-        return getContext().getResources().getColor(resId);
+        return ConfigUtils.APPLICATION;
     }
 
 	public static ColorStateList getColorStateList(int resId) {//googleplay
@@ -64,69 +42,6 @@ public class UiUtils {
         //16~25sp之间
         Random random = new Random();
         return 16 + random.nextInt(10);
-    }
-
-    public static int getDimen(int resId) {//googleplay
-        return getContext().getResources().getDimensionPixelSize(resId);
-    }
-	public static boolean isRunOnUiThread() {//googleplay
-        //是否运行在主线程
-       /* if(Looper.myLooper() == Looper.getMainLooper()) {
-
-        } else {
-
-        }*/
-        //使用线程id的比较
-        int mainThreadId = getMainThreadId();
-        //当前线程的id
-        int currentThreadId = android.os.Process.myTid();
-        return mainThreadId == currentThreadId;
-    }
-
-    /**
-     * dp 转换为 像素,传入"dp",输出"像素",java代码中一般用这种
-     */
-    public static int dp2px(Context context,int dp) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return (int) (density * dp + 0.5f);//四舍五入
-        //   3.1   --> 3
-        //  3.7   --> 3
-        //3.6-->3
-        //4.2-->4
-    }
-
-    /**
-     * 像素 转换为 dp,传入"像素",输出"dp"
-     */
-    public static int px2dp(Context context,int px) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return (int) (px/density + 0.5F);
-    }
-
-    //字体的sp 转换为 sp
-    public static int sp2px(Context var0, float var1) {
-        float var2 = var0.getResources().getDisplayMetrics().scaledDensity;
-        return (int)(var1 * var2 + 0.5F);
-    }
-
-    //px 转换为 sp
-    public static int px2sp(Context var0, float var1) {
-        float var2 = var0.getResources().getDisplayMetrics().scaledDensity;
-        return (int)(var1 / var2 + 0.5F);
-    }
-
-    /**
-     * 获取屏幕宽度
-     */
-    public static int getScreenWidth(Context context) {
-        return context.getResources().getDisplayMetrics().widthPixels;
-    }
-
-    /**
-     * 获取屏幕高度
-     */
-    public static int getScreemHeight(Context context){
-        return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     /**

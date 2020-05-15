@@ -14,9 +14,9 @@ import com.actor.forced2sleep.service.CheckUpdateService;
 import com.actor.forced2sleep.service.ToastNoticeService;
 import com.actor.forced2sleep.utils.AccessibilityUtils;
 import com.actor.forced2sleep.utils.LaunchSelfUtils;
-import com.actor.forced2sleep.utils.ServiceStateUtils;
 import com.actor.forced2sleep.utils.WhiteListUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ServiceUtils;
 import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindColor;
@@ -48,13 +48,16 @@ public class MainActivity extends BaseActivity {
                 toast(data.getAuthority());
                 logError(data.getAuthority());//传递的内容
             } else {
-                logError("data == null,from SplashActivity");
+                logError("data == null, from SplashActivity");
             }
         }
         snackbar = Snackbar.make(btn, "color:#cc99", Snackbar.LENGTH_INDEFINITE);
 
         /**
          * 下面这些是白名单
+         */
+        /**
+         * 添加vivo手机
          */
         addPackageName("android");//系统启动/关机界面
         addPackageName("com.android.BBKClock");//闹钟
@@ -81,6 +84,15 @@ public class MainActivity extends BaseActivity {
         addPackageName("com.vivo.browser");//浏览器
         addPackageName("com.vivo.gallery");//相机相册
 
+        /**
+         * 添加华为
+         */
+        addPackageName("com.huawei.intelligent");
+        addPackageName("com.huawei.android.launcher");//华为桌面
+
+        /**
+         * 添加第三方
+         */
         addPackageName("com.autonavi.minimap");//高德地图
         addPackageName("com.eg.android.AlipayGphone");//支付宝
         addPackageName("com.kuchuan.getsign");//酷川云获取签名
@@ -102,24 +114,26 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_launch://开机启动
                 toast("开机启动(未完成,需自己开启)");
                 boolean success = LaunchSelfUtils.gotoLaunchList(this);
-                if (!success) openApk("com.iqoo.secure");//打开i管家
+                if (!success) {
+                    openApk("com.iqoo.secure");//打开i管家
+                }
                 break;
             case R.id.btn_white://白名单
                 boolean success1 = WhiteListUtils.gotoWhiteList(this);
-                if (!success1) openApk("com.iqoo.secure");//打开i管家
+                if (!success1) {
+                    openApk("com.iqoo.secure");//打开i管家
+                }
                 break;
             case R.id.btn_start_fuzhu://开启辅助功能
                 if (!AccessibilityUtils.isAccessibilitySettingsOn(AppLockService.class)) {
-//                    if (!ServiceStateUtils.isServiceRunning(this, AppLockService.class)) {
-//                    if (!ServiceStateUtils.isAccessibilityRunning(new AppLockService())) {
                     AccessibilityUtils.openAccessibility(activity);
                     toast("请开启辅助功能");
                 } else {
                     toast("辅助功能已开启");
-//                    openApk("com.iqoo.secure");//打开i管家
                 }
-                logError("AppLockService运行状态:" + String.valueOf(ServiceStateUtils.isServiceRunning(activity, AppLockService.class)));
-                if (!ServiceStateUtils.isServiceRunning(activity, AppLockService.class)) {
+                boolean appLockServiceIsRunning = ServiceUtils.isServiceRunning(AppLockService.class);
+                logError("AppLockService运行状态:" + String.valueOf(appLockServiceIsRunning));
+                if (!appLockServiceIsRunning) {
                     startService(new Intent(activity, AppLockService.class));
                 }
                 break;
@@ -130,9 +144,13 @@ public class MainActivity extends BaseActivity {
                         snackbar.dismiss();
                         if (AppUtils.isAppDebug()) {
                             startActivity(new Intent(activity, EnterPwdActivity.class));
-                        } else onBackPressed();
+                        } else {
+                            onBackPressed();
+                        }
                     }
                 }).setActionTextColor(redTransCC99).show();
+                break;
+            default:
                 break;
         }
     }

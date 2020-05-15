@@ -7,8 +7,8 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.actor.myandroidframework.utils.LogUtils;
-import com.actor.myandroidframework.utils.ToastUtils;
 import com.blankj.utilcode.util.RomUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Description: 跳转手机"白名单"页面工具类
@@ -74,7 +74,7 @@ public class WhiteListUtils {
             // from ProcessRecord{32d63763 25125:com.actor.forced2sleep/u0a1772}
             // (pid=25125, uid=11772) not exported from uid 10053
             if (e instanceof SecurityException) {
-                ToastUtils.show("打开自启页面被系统拒绝了");
+                ToastUtils.showShort("打开自启页面被系统拒绝了");
             }
 //            gotoSetting(context);
         }

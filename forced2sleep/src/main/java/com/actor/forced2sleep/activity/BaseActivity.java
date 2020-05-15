@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.application.MyApplication;
-import com.actor.forced2sleep.utils.ACache;
 import com.actor.myandroidframework.activity.ActorBaseActivity;
+import com.blankj.utilcode.util.CacheDiskUtils;
 import com.jaeger.library.StatusBarUtil;
 
 
@@ -16,7 +16,7 @@ import com.jaeger.library.StatusBarUtil;
  */
 public class BaseActivity extends ActorBaseActivity {
 
-    protected ACache aCache = MyApplication.instance.aCache;
+    protected CacheDiskUtils aCache = MyApplication.instance.aCache;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

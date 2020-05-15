@@ -15,8 +15,8 @@ import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.utils.PermissionRequestUtils;
-import com.actor.myandroidframework.utils.ToastUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.util.List;
 import java.util.Timer;
@@ -40,7 +40,9 @@ public class ToastNoticeService extends Service {
         toastContent = getResources().getString(R.string.toast_sleep);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             checkPermission();
-        } else initTimer();
+        } else {
+            initTimer();
+        }
     }
 
     @Override
@@ -75,7 +77,9 @@ public class ToastNoticeService extends Service {
                 String packageName = getProcessName();
                 if (Global.isSleepTime() && !mDao.find(packageName)) {
                     boolean screenLock = ScreenUtils.isScreenLock();//是否锁屏
-                    if (!screenLock) ToastUtils.show(toastContent);
+                    if (!screenLock) {
+                        ToastUtils.showShort(toastContent);
+                    }
                 }
             }
         }, 0, 1000);

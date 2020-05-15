@@ -2,18 +2,16 @@ package com.actor.forced2sleep.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.activity.EnterPwdActivity;
-import com.actor.forced2sleep.activity.MainActivity;
 import com.actor.forced2sleep.application.MyApplication;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.global.Global;
@@ -24,8 +22,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import java.util.List;
 
 /**
- * Description: 程序锁服务
- * Copyright  : Copyright (c) 2015
+ * Description: 程序锁服务, 辅助功能
  * Company    : 公司名称
  * Date       : 2017/2/23 on 21:31.
  */
@@ -33,36 +30,51 @@ import java.util.List;
 public class AppLockService extends AccessibilityService {
 
     private AppLockDao mDao;
+    private String strForce2Sleep;
+    private String name;
+    protected String channelId = toString();
+    protected int id = 1;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mDao = AppLockDao.getInstance(this);
+        strForce2Sleep = getResources().getString(R.string.accessibility_service_label);
+
+        //适配8.0
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            name = getResources().getString(R.string.app_name);
+            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_HIGH);
+            nm.createNotificationChannel(channel);
+            Notification notification = new Notification.Builder(getApplicationContext(), channelId).build();
+            startForeground(id, notification);
+        }
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.error("AppLockService:onStartCommand", true);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setTicker("强制睡觉正在运行中...");
-        builder.setSmallIcon(R.drawable.logo);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
-        builder.setContentTitle("强制睡觉");
-        builder.setContentText("正在运行中...");
-        //builder.setContentInfo("Content Info");
-        builder.setWhen(System.currentTimeMillis());
-        Intent intent1 = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent
-                .FLAG_NO_CREATE);
-        builder.setContentIntent(pendingIntent);
-        Notification notification = builder.build();
-        //在onStartCommand里面调用 startForeground
-        startForeground(9529, notification);//id 唯一的通知标识
-        return Service.START_STICKY;//super.onStartCommand(intent, flags, startId)
-    }
+//    @Override
+//    public int onStartCommand(Intent intent, int flags, int startId) {
+//        LogUtils.error("AppLockService:onStartCommand", true);
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+//        builder.setTicker("强制睡觉正在运行中...");
+//        builder.setSmallIcon(R.drawable.logo);
+//        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+//        builder.setContentTitle("强制睡觉");
+//        builder.setContentText("正在运行中...");
+//        //builder.setContentInfo("Content Info");
+//        builder.setWhen(System.currentTimeMillis());
+//        Intent intent1 = new Intent(this, MainActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent
+//                .FLAG_NO_CREATE);
+//        builder.setContentIntent(pendingIntent);
+//        Notification notification = builder.build();
+//        //在onStartCommand里面调用 startForeground
+//        startForeground(9529, notification);//id 唯一的通知标识
+//        return Service.START_STICKY;//super.onStartCommand(intent, flags, startId)
+//    }
 
     /**
-     * //连接服务后,一般是在授权成功后会接收到
+     * 连接服务后,一般是在授权成功后会接收到
      * 系统会在成功连接上你的服务的时候调用这个方法，在这个方法里你可以做一下初始化工作，
      * 例如设备的声音震动管理，也可以调用setServiceInfo()进行配置工作。
      */
@@ -81,39 +93,46 @@ public class AppLockService extends AccessibilityService {
 //        setServiceInfo(accessibilityServiceInfo);
     }
 
-    //辅助功能相关事件发生后的回调,如触发了通知栏变化、界面变化等
+    /**
+     * 辅助功能相关事件发生后的回调,如触发了通知栏变化、界面变化等
+     */
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         // 此方法是在主线程中回调过来的，所以消息是阻塞执行的
         String packageName = event.getPackageName().toString();//当前页面包名
-        LogUtils.error(packageName, true);
+        String className = event.getClassName().toString();
+        LogUtils.formatError("包名: %s, className: %s", true, packageName, className);
 
         // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
         AccessibilityUtils.updateEvent(this, event);
-        List<AccessibilityNodeInfo> nodeInfos = AccessibilityUtils.findNodesByText(getResources()
-                .getString(R.string.accessibility_service_label));
+        List<AccessibilityNodeInfo> nodeInfos = AccessibilityUtils.findNodesByText(strForce2Sleep);
         //页面窗口状态发生变化
         switch (event.getEventType()) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                LogUtils.error("窗口状态发生变化", true);
+                LogUtils.error("窗口状态发生变化: ", true);
                 //如果是i管家
                 if ("com.iqoo.secure".equals(packageName)) {
                     jumpToEnterPwdActivity(packageName);
                     break;
                 }
+                //华为桌面的 收纳 文件夹
+                if ("com.huawei.android.launcher".equals(packageName) || "android".equals(packageName)) {
+                    break;
+                }
+
                 //如果是晚上,如果没有在白名单内,已经加锁
                 if (Global.isSleepTime() && !mDao.find(packageName)) {
-                    if (MyApplication.instance.aCache.getAsString(packageName) == null) {
+                    if (MyApplication.instance.aCache.getString(packageName) == null) {
                         jumpToEnterPwdActivity(packageName);
                     }
                 }
-                if (nodeInfos != null && nodeInfos.size() > 0) {
-                    LogUtils.error(nodeInfos.get(0).getClassName().toString(), true);
+                if (nodeInfos != null && !nodeInfos.isEmpty()) {
+                    LogUtils.formatError("在这个页面发现\"%s\": %s", true, strForce2Sleep, nodeInfos.get(0).getClassName().toString());
                     List<AccessibilityNodeInfo> sets = AccessibilityUtils.findNodesByText("设置");
                     List<AccessibilityNodeInfo> unins = AccessibilityUtils.findNodesByText("卸载");
                     if ((sets != null && sets.size() > 0) || (unins != null && unins.size() > 0)) {
                         boolean b = AccessibilityUtils.clickBackKey();
-                        LogUtils.error("模拟返回键:" + String.valueOf(b), true);
+                        LogUtils.formatError("模拟返回键: success = %b", true, b);
                         if (b) {
                             jumpToEnterPwdActivity(packageName);
                         }
@@ -135,10 +154,13 @@ public class AppLockService extends AccessibilityService {
                     case "com.iqoo.secure"://i管家
                         jumpToEnterPwdActivity(packageName);
                         break;
+                    case "com.huawei.android.launcher"://华为桌面的 收纳 文件夹
+                    case "android":
+                        break;
                     default:
                         //如果是晚上,如果没有在白名单内,已经加锁
                         if (Global.isSleepTime() && !mDao.find(packageName)) {
-                            if (MyApplication.instance.aCache.getAsString(packageName) == null) {
+                            if (MyApplication.instance.aCache.getString(packageName) == null) {
                                 jumpToEnterPwdActivity(packageName);
                             }
                         }
@@ -149,15 +171,16 @@ public class AppLockService extends AccessibilityService {
                 /**
                  * @see AccessibilityEvent.EventType
                  */
-                LogUtils.error("其余事件: " + event.getEventType(), true);
+                LogUtils.formatError("其余事件, EventType = %d: ", true, event.getEventType());
                 break;
         }
     }
 
     private void jumpToEnterPwdActivity(String packageName){
         //edited 暂时不跳转
-        if (true) return;
-
+        if (true) {
+            return;
+        }
         ActivityUtils.startActivity(new Intent(this, EnterPwdActivity.class)
                 .putExtra(Global.PACKAGE_NAME, packageName));
     }
@@ -171,11 +194,5 @@ public class AppLockService extends AccessibilityService {
     @Override
     public void onInterrupt() {
         //辅助功能服务中断，如授权关闭或者将服务杀死
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        startService(new Intent(this, AppLockService.class));
     }
 }
