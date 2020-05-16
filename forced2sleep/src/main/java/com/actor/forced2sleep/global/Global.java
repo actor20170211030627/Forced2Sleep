@@ -30,12 +30,12 @@ public class Global {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        //[00:00, 07:00) || (22:00, 23:59]
+        //[00:00, 07:00) || [22:00, 23:59]
         if (hour < 7 || hour >= 22) {
             return true;
         }
 
-        //[07:00 ~ 22:00]
+        //[07:00 ~ 22:00)
         switch (hour) {
             case 7:
                 return minute < 30;//[07:00 ~ 07:30)

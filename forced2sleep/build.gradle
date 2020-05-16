@@ -6,8 +6,8 @@ android {
         applicationId "com.actor.forced2sleep"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 20022701
-        versionName "1.1.5"
+        versionCode 20051601
+        versionName "1.1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -38,7 +38,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:gridlayout-v7:28.0.0'

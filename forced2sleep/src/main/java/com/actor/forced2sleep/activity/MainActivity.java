@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity {
         addPackageName("longbin.helloworld");//计算器
 
         startService(new Intent(this, CheckUpdateService.class));//检查更新
-        startService(new Intent(this, ToastNoticeService.class));
+        startForegroundService(new Intent(this, ToastNoticeService.class));
     }
 
     @OnClick({R.id.btn_launch, R.id.btn_white, R.id.btn_start_fuzhu, R.id.btn})

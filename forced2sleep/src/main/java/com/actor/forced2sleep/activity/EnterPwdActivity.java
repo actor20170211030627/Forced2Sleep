@@ -29,15 +29,15 @@ import butterknife.OnLongClick;
 
 /**
  * 程序锁输入密码页面
- * <p>
  * 1. 解决任务栈页面跳转bug,在清单文件中手动注册页面,启动模式设置成单例设计模式
- * <p>
+ *
  * <activity
  * android:name=".activity.EnterPwdActivity"
  * android:launchMode="singleInstance"
- * android:excludeFromRecents="true"> //2. 不让输入密码页面进入系统最近任务列表中,
- * //如果这个Activity是整个Task的根Activity，整个Task将不会出现在最近任务列表中。
- * </activity>
+ * android:excludeFromRecents="true" />
+ *
+ * 2. excludeFromRecents: 不让输入密码页面进入系统最近任务列表中
+ *    如果这个Activity是整个Task的根Activity，整个Task将不会出现在最近任务列表中。
  */
 public class EnterPwdActivity extends BaseActivity {
 
@@ -58,7 +58,6 @@ public class EnterPwdActivity extends BaseActivity {
     private        int            passwordLength;//密码长度
     private        Timer          timer = new Timer();//删除
     private        CountDownTimer countDownTimer;
-    //    private boolean isInputBack = false;//是否需要倒叙输入
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +96,6 @@ public class EnterPwdActivity extends BaseActivity {
     //初始化 & 输错后重写初始化 & 输入为空
     private void init() {
         tvMd5.setText(getMd5String());
-//        isInputBack = new Random().nextBoolean();
-        //tvPwd.setHint("请输入"+passwordLength+"位年月日时分MD5密码");
-//        if (isInputBack) {
-//            tvPwd.setHint("请倒序输入上面所有数字");
-//        } else tvPwd.setHint("请输入上面所有数字");
-
-        //必须new才能重置计时...
         countDownTimer = new CountDownTimer(getCountDownSecond() * 1000, 500) {
 
             @Override
@@ -155,7 +147,9 @@ public class EnterPwdActivity extends BaseActivity {
                 runOnUiThread(() -> {
                     if (view.isPressed()) {
                         deleteText();
-                    } else cancel();//如果不是长按,就取消任务
+                    } else {
+                        cancel();//如果不是长按,就取消任务
+                    }
                 });
             }
         }, 0, 50);
@@ -165,7 +159,9 @@ public class EnterPwdActivity extends BaseActivity {
     //删除文字
     private void deleteText() {
         String s = tvPwd.getText().toString();
-        if (s.length() > 0) tvPwd.setText(s.substring(0, s.length() - 1));
+        if (s.length() > 0) {
+            tvPwd.setText(s.substring(0, s.length() - 1));
+        }
     }
 
     /**
@@ -187,17 +183,9 @@ public class EnterPwdActivity extends BaseActivity {
     private String getStringNum(String string, int maxLentgh) {
         char[] chars = string.toCharArray();
         String needReturn = "";
-        if (false) {//倒序isInputBack
-            for (int i = chars.length - 1; i >= 0; i--) {
-                if (chars[i] >= '0' && chars[i] <= '9') {
-                    needReturn += chars[i];
-                }
-            }
-        } else {
-            for (int i = 0; i < chars.length; i++) {
-                if (chars[i] >= '0' && chars[i] <= '9') {
-                    needReturn += chars[i];
-                }
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                needReturn += chars[i];
             }
         }
         if (needReturn.length() > maxLentgh) {

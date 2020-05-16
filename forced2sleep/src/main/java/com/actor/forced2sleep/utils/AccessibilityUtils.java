@@ -19,45 +19,44 @@ import java.util.List;
 
 /**
  * Created by popfisher on 2017/7/11.
- * 使用本工具前需要先初始化{@link #updateEvent(AccessibilityService, AccessibilityEvent)}
  */
-
 public class AccessibilityUtils {
 
     private static Context context = ConfigUtils.APPLICATION;
-    private static AccessibilityEvent accessibilityEvent;
-    private static AccessibilityService accessibilityService;
+    protected static AccessibilityService service;
 
     private AccessibilityUtils() {
         throw new RuntimeException(getClass().getName() + " can not be new!");
     }
 
     /**
-     * 初始化/更新 service&event
+     * Service 创建的时候
      */
-    public static void updateEvent(AccessibilityService service, AccessibilityEvent event) {
-        if (service != null && accessibilityService == null) {
-            accessibilityService = service;
-        }
-        if (event != null) accessibilityEvent = event;
+    public static void onCreate(AccessibilityService service) {
+        AccessibilityUtils.service = service;
     }
 
-    private static AccessibilityNodeInfo getRootNodeInfo() {
+    /**
+     * Service 销毁的时候
+     */
+    public static void onDestroy() {
+        AccessibilityUtils.service = null;
+    }
+
+    private static AccessibilityNodeInfo getRootNodeInfo(AccessibilityEvent event) {
         if (Build.VERSION.SDK_INT >= 16) {
             // 建议使用getRootInActiveWindow，这样不依赖当前的事件类型
-            return accessibilityService.getRootInActiveWindow();
-            // 下面这个必须依赖当前的AccessibilityEvent
-//            nodeInfo = curEvent.getSource();
+            return service.getRootInActiveWindow();
         } else {
-            return accessibilityEvent.getSource();
+            return event.getSource();
         }
     }
 
     /**
      * 根据Text搜索所有符合条件的节点, 模糊搜索方式
      */
-    public static List<AccessibilityNodeInfo> findNodesByText(String text) {
-        AccessibilityNodeInfo nodeInfo = getRootNodeInfo();
+    public static List<AccessibilityNodeInfo> findNodesByText(AccessibilityEvent event, String text) {
+        AccessibilityNodeInfo nodeInfo = getRootNodeInfo(event);
         if (nodeInfo != null) {
            return nodeInfo.findAccessibilityNodeInfosByText(text);
         }
@@ -70,8 +69,8 @@ public class AccessibilityUtils {
      * api要求18及以上
      * @param viewId 要加上包名,示例:com.google.example:id/cb_checkbox
      */
-    public static List<AccessibilityNodeInfo> findNodesById(String viewId) {
-        AccessibilityNodeInfo nodeInfo = getRootNodeInfo();
+    public static List<AccessibilityNodeInfo> findNodesById(AccessibilityEvent event, String viewId) {
+        AccessibilityNodeInfo nodeInfo = getRootNodeInfo(event);
         if (nodeInfo != null) {
             if (Build.VERSION.SDK_INT >= 18) {
                 return nodeInfo.findAccessibilityNodeInfosByViewId(viewId);
@@ -80,8 +79,8 @@ public class AccessibilityUtils {
         return null;
     }
 
-    public static boolean clickByText(String text) {
-        return performClick(findNodesByText(text));
+    public static boolean clickByText(AccessibilityEvent event, String text) {
+        return performClick(findNodesByText(event, text));
     }
 
     /**
@@ -91,8 +90,8 @@ public class AccessibilityUtils {
      * @param viewId
      * @return 是否点击成功
      */
-    public static boolean clickById(String viewId) {
-        return performClick(findNodesById(viewId));
+    public static boolean clickById(AccessibilityEvent event, String viewId) {
+        return performClick(findNodesById(event, viewId));
     }
 
     /**
@@ -124,7 +123,7 @@ public class AccessibilityUtils {
      */
     private static boolean performGlobalAction(int action) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return accessibilityService.performGlobalAction(action);
+            return service.performGlobalAction(action);
         }
         return false;
     }
@@ -193,7 +192,7 @@ public class AccessibilityUtils {
     /**
      * 跳转到系统设置页面开启辅助功能
      */
-    public static void openAccessibility(Context context){
+    public static void openAccessibility(Context context) {
         Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
         context.startActivity(intent);
     }
@@ -202,7 +201,6 @@ public class AccessibilityUtils {
      * 获取打开辅助功能的Intent
      */
     public static Intent getAccessibilitySettingIntent() {
-        // 一些垃圾品牌的手机可能不是这个Intent,无需适配
         return new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
     }
 }

@@ -2,36 +2,50 @@ package com.actor.forced2sleep.service;
 
 import android.Manifest;
 import android.app.ActivityManager;
-import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.global.Global;
-import com.actor.myandroidframework.utils.PermissionRequestUtils;
+import com.actor.myandroidframework.service.BaseService;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Description: toast提醒服务
  * Author     : 李大发
  * Date       : 2019/11/29 on 11:39
  */
-public class ToastNoticeService extends Service {
+public class ToastNoticeService extends BaseService {
 
-    private Timer      timer = new Timer();
-    private AppLockDao mDao;
-    public String toastContent;
+    private ScheduledExecutorService service;
+    private Timer                    timer = new Timer();
+    private AppLockDao               mDao;
+    public  String                   toastContent;
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            String packageName = getProcessName();
+            if (Global.isSleepTime() && !mDao.find(packageName)) {
+                boolean screenLock = ScreenUtils.isScreenLock();//是否锁屏
+                if (!screenLock) {
+                    ToastUtils.showShort(toastContent);
+                }
+            }
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -55,34 +69,46 @@ public class ToastNoticeService extends Service {
      * @return
      */
     private void checkPermission() {
-        PermissionRequestUtils.requestPermission(this, new PermissionRequestUtils.PermissionCallBack() {
-            @Override
-            public void onSuccessful(@NonNull List<String> deniedPermissions) {
-                initTimer();
-            }
+        //我的华为手机一直返回 false, 原生代码也是一直返回 -1, 所以直接初始化timer吧...
+        initTimer();
 
-            @Override
-            public void onFailure(@NonNull List<String> deniedPermissions) {
-                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        }, Manifest.permission.PACKAGE_USAGE_STATS);
+        String permission = Manifest.permission.PACKAGE_USAGE_STATS;
+        AndPermission.with(this)
+                .runtime()
+                .permission(permission)
+                .onGranted(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        initTimer();
+                    }
+                })
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }).start();
+
+        //下一个版本已修复bug
+//        PermissionRequestUtils.requestPermission(this, new PermissionRequestUtils.PermissionCallBack() {
+//            @Override
+//            public void onSuccessful(@NonNull List<String> deniedPermissions) {
+//                initTimer();
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull List<String> deniedPermissions) {
+//                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//            }
+//        }, permission);
     }
 
     private void initTimer() {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                String packageName = getProcessName();
-                if (Global.isSleepTime() && !mDao.find(packageName)) {
-                    boolean screenLock = ScreenUtils.isScreenLock();//是否锁屏
-                    if (!screenLock) {
-                        ToastUtils.showShort(toastContent);
-                    }
-                }
-            }
-        }, 0, 1000);
+        timer.schedule(timerTask, 0, 1000);
     }
 
     //<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -118,6 +144,7 @@ public class ToastNoticeService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        timerTask.cancel();
         timer.cancel();//取消后再调用timer.schedule()会报错
     }
 }

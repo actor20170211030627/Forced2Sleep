@@ -50,28 +50,8 @@ public class AppLockService extends AccessibilityService {
             Notification notification = new Notification.Builder(getApplicationContext(), channelId).build();
             startForeground(id, notification);
         }
+        AccessibilityUtils.onCreate(this);
     }
-
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        LogUtils.error("AppLockService:onStartCommand", true);
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-//        builder.setTicker("强制睡觉正在运行中...");
-//        builder.setSmallIcon(R.drawable.logo);
-//        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
-//        builder.setContentTitle("强制睡觉");
-//        builder.setContentText("正在运行中...");
-//        //builder.setContentInfo("Content Info");
-//        builder.setWhen(System.currentTimeMillis());
-//        Intent intent1 = new Intent(this, MainActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent
-//                .FLAG_NO_CREATE);
-//        builder.setContentIntent(pendingIntent);
-//        Notification notification = builder.build();
-//        //在onStartCommand里面调用 startForeground
-//        startForeground(9529, notification);//id 唯一的通知标识
-//        return Service.START_STICKY;//super.onStartCommand(intent, flags, startId)
-//    }
 
     /**
      * 连接服务后,一般是在授权成功后会接收到
@@ -103,9 +83,7 @@ public class AppLockService extends AccessibilityService {
         String className = event.getClassName().toString();
         LogUtils.formatError("包名: %s, className: %s", true, packageName, className);
 
-        // AccessibilityOperator封装了辅助功能的界面查找与模拟点击事件等操作
-        AccessibilityUtils.updateEvent(this, event);
-        List<AccessibilityNodeInfo> nodeInfos = AccessibilityUtils.findNodesByText(strForce2Sleep);
+        List<AccessibilityNodeInfo> nodeInfos = AccessibilityUtils.findNodesByText(event, strForce2Sleep);
         //页面窗口状态发生变化
         switch (event.getEventType()) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
@@ -128,8 +106,8 @@ public class AppLockService extends AccessibilityService {
                 }
                 if (nodeInfos != null && !nodeInfos.isEmpty()) {
                     LogUtils.formatError("在这个页面发现\"%s\": %s", true, strForce2Sleep, nodeInfos.get(0).getClassName().toString());
-                    List<AccessibilityNodeInfo> sets = AccessibilityUtils.findNodesByText("设置");
-                    List<AccessibilityNodeInfo> unins = AccessibilityUtils.findNodesByText("卸载");
+                    List<AccessibilityNodeInfo> sets = AccessibilityUtils.findNodesByText(event, "设置");
+                    List<AccessibilityNodeInfo> unins = AccessibilityUtils.findNodesByText(event, "卸载");
                     if ((sets != null && sets.size() > 0) || (unins != null && unins.size() > 0)) {
                         boolean b = AccessibilityUtils.clickBackKey();
                         LogUtils.formatError("模拟返回键: success = %b", true, b);
@@ -176,7 +154,7 @@ public class AppLockService extends AccessibilityService {
         }
     }
 
-    private void jumpToEnterPwdActivity(String packageName){
+    private void jumpToEnterPwdActivity(String packageName) {
         //edited 暂时不跳转
         if (true) {
             return;
@@ -194,5 +172,11 @@ public class AppLockService extends AccessibilityService {
     @Override
     public void onInterrupt() {
         //辅助功能服务中断，如授权关闭或者将服务杀死
+    }
+
+    @Override
+    public void onDestroy() {
+        AccessibilityUtils.onDestroy();
+        super.onDestroy();
     }
 }
