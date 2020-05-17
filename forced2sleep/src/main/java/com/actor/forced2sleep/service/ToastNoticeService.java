@@ -1,27 +1,29 @@
 package com.actor.forced2sleep.service;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.service.BaseService;
+import com.actor.myandroidframework.utils.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Description: toast提醒服务
@@ -30,32 +32,40 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class ToastNoticeService extends BaseService {
 
-    private ScheduledExecutorService service;
-    private Timer                    timer = new Timer();
-    private AppLockDao               mDao;
-    public  String                   toastContent;
-    private TimerTask timerTask = new TimerTask() {
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
         @Override
-        public void run() {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
             String packageName = getProcessName();
             if (Global.isSleepTime() && !mDao.find(packageName)) {
                 boolean screenLock = ScreenUtils.isScreenLock();//是否锁屏
                 if (!screenLock) {
-                    ToastUtils.showShort(toastContent);
+                    ThreadUtils.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //这种方式在高版本上不行, toast不连贯
+//                            ToastUtils.showShort(toastContent);
+                            Toast.makeText(ToastNoticeService.this, toastContent, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
+            sendEmptyMessageDelayed(0, 1_000L);
         }
     };
+    private AppLockDao               mDao;
+    public  String                   toastContent;
 
+    @SuppressLint("HandlerLeak")
     @Override
     public void onCreate() {
         super.onCreate();
         mDao = AppLockDao.getInstance(this);
         toastContent = getResources().getString(R.string.toast_sleep);
+        handler.sendEmptyMessage(0);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             checkPermission();
-        } else {
-            initTimer();
         }
     }
 
@@ -69,9 +79,7 @@ public class ToastNoticeService extends BaseService {
      * @return
      */
     private void checkPermission() {
-        //我的华为手机一直返回 false, 原生代码也是一直返回 -1, 所以直接初始化timer吧...
-        initTimer();
-
+        //我的华为手机一直返回 false, 原生代码也是一直返回 -1
         String permission = Manifest.permission.PACKAGE_USAGE_STATS;
         AndPermission.with(this)
                 .runtime()
@@ -79,7 +87,7 @@ public class ToastNoticeService extends BaseService {
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        initTimer();
+                        LogUtils.error("onGranted: 同意权限", true);
                     }
                 })
                 .onDenied(new Action<List<String>>() {
@@ -105,10 +113,6 @@ public class ToastNoticeService extends BaseService {
 //                startActivity(intent);
 //            }
 //        }, permission);
-    }
-
-    private void initTimer() {
-        timer.schedule(timerTask, 0, 1000);
     }
 
     //<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -144,7 +148,6 @@ public class ToastNoticeService extends BaseService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timerTask.cancel();
-        timer.cancel();//取消后再调用timer.schedule()会报错
+        handler.removeCallbacksAndMessages(null);
     }
 }

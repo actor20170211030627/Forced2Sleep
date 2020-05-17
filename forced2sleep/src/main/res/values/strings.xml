@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">强制睡觉</string>
-    <string name="accessibility_service_label">强制睡觉</string>
-    <string name="accessibility_service_description">只有您同意了之后,强制睡觉才能检测到你打开的是哪个应用.</string>
+
     <string name="instructions">
         1.不能打开i管家.\n
         2.晚上不能玩手机.\n

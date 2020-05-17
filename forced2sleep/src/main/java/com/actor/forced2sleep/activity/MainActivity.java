@@ -9,14 +9,11 @@ import android.widget.Button;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
-import com.actor.forced2sleep.service.AppLockService;
 import com.actor.forced2sleep.service.CheckUpdateService;
 import com.actor.forced2sleep.service.ToastNoticeService;
-import com.actor.forced2sleep.utils.AccessibilityUtils;
 import com.actor.forced2sleep.utils.LaunchSelfUtils;
 import com.actor.forced2sleep.utils.WhiteListUtils;
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.ServiceUtils;
 import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindColor;
@@ -108,7 +105,7 @@ public class MainActivity extends BaseActivity {
         startForegroundService(new Intent(this, ToastNoticeService.class));
     }
 
-    @OnClick({R.id.btn_launch, R.id.btn_white, R.id.btn_start_fuzhu, R.id.btn})
+    @OnClick({R.id.btn_launch, R.id.btn_white, R.id.btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_launch://开机启动
@@ -122,19 +119,6 @@ public class MainActivity extends BaseActivity {
                 boolean success1 = WhiteListUtils.gotoWhiteList(this);
                 if (!success1) {
                     openApk("com.iqoo.secure");//打开i管家
-                }
-                break;
-            case R.id.btn_start_fuzhu://开启辅助功能
-                if (!AccessibilityUtils.isAccessibilitySettingsOn(AppLockService.class)) {
-                    AccessibilityUtils.openAccessibility(activity);
-                    toast("请开启辅助功能");
-                } else {
-                    toast("辅助功能已开启");
-                }
-                boolean appLockServiceIsRunning = ServiceUtils.isServiceRunning(AppLockService.class);
-                logError("AppLockService运行状态:" + String.valueOf(appLockServiceIsRunning));
-                if (!appLockServiceIsRunning) {
-                    startService(new Intent(activity, AppLockService.class));
                 }
                 break;
             case R.id.btn://确定

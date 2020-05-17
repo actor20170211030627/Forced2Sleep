@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.RomUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -40,7 +41,8 @@ public class LaunchSelfUtils {
                     "com.samsung.android.sm.ui.ram.AutoRunActivity");
 
         } else if (RomUtils.isHuawei()) {// 华为测试通过
-            //我的华为 HONOR v30
+            //我的华为 HONOR v30, 打不开具体页面, 只能打开管家..
+            ActivityUtils.startLauncherActivity("com.huawei.systemmanager");
             componentName = new ComponentName("com.huawei.systemmanager",
                     "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity");
 

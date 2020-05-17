@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.actor.forced2sleep">
 
-    <!-- Notification通知栏:振动,呼吸灯 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permisson.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-
     <!--后台服务-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
@@ -46,34 +39,22 @@
             android:name=".activity.MainActivity"
             android:excludeFromRecents="true">
             <intent-filter>
-                <action android:name="${applicationId}.startup" /> <!-- android.intent.action.MAIN -->
+                <action android:name="${applicationId}.startup" />
 
-                <category android:name="android.intent.category.DEFAULT" /> <!--  -->
+                <!-- android.intent.action.MAIN -->
+                <category android:name="android.intent.category.DEFAULT" />
                 <!-- 如果在这个LAUNCHER里写了data,就没有启动图标了 -->
                 <data android:scheme="forced2sleep" />
             </intent-filter>
-        </activity> <!-- 单例启动模式,不在最近任务列表中android:launchMode="singleInstance" -->
+        </activity>
 
+        <!-- 单例启动模式,不在最近任务列表中android:launchMode="singleInstance" -->
         <activity
             android:name=".activity.EnterPwdActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance" />
 
-        <service
-            android:name=".service.AppLockService"
-            android:label="@string/accessibility_service_label"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:priority="2147483647">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-
-            <!-- 从Android 4.0开始,可以包括一个 <meta-data>元素 -->
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
-        </service> <!-- 开机启动的广播 -->
-
+        <!-- 开机启动的广播 -->
         <receiver android:name=".receiver.BootReceiver">
 
             <!-- 3.调频道,过滤广播:开机广播 -->

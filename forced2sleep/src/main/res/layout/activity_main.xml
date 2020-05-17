@@ -45,15 +45,6 @@
             android:text="白名单" />
 
         <Button
-            android:id="@+id/btn_start_fuzhu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#cc99"
-            android:padding="10dp"
-            android:text="开启辅助功能(强制输入密码模式)" />
-
-        <Button
             android:id="@+id/btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
