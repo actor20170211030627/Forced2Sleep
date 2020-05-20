@@ -2,24 +2,20 @@ package com.actor.forced2sleep.service;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.service.BaseService;
 import com.actor.myandroidframework.utils.LogUtils;
+import com.blankj.utilcode.util.ProcessUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.ThreadUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 
@@ -32,32 +28,28 @@ import java.util.List;
  */
 public class ToastNoticeService extends BaseService {
 
+    private AppLockDao               mDao;
+    public  String                   toastContent;
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            String packageName = getProcessName();
-            if (Global.isSleepTime() && !mDao.find(packageName)) {
+            boolean sleepTime = Global.isSleepTime();
+            if (sleepTime) {
                 boolean screenLock = ScreenUtils.isScreenLock();//是否锁屏
                 if (!screenLock) {
-                    ThreadUtils.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //这种方式在高版本上不行, toast不连贯
-//                            ToastUtils.showShort(toastContent);
-                            Toast.makeText(ToastNoticeService.this, toastContent, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    String packageName = getProcessName();
+                    if (!mDao.find(packageName)) {
+                        ToastUtils.showShort(toastContent);
+                    }
                 }
             }
             sendEmptyMessageDelayed(0, 1_000L);
         }
     };
-    private AppLockDao               mDao;
-    public  String                   toastContent;
 
-    @SuppressLint("HandlerLeak")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -118,31 +110,32 @@ public class ToastNoticeService extends BaseService {
     //<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
     //        tools:ignore="ProtectedPermissions" />
     private String getProcessName() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            long ts = System.currentTimeMillis();
-            UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
-            List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, 0, ts);
-            if (queryUsageStats == null || queryUsageStats.isEmpty()) {// 没有权限，获取不到数据
-                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            } else {
-                UsageStats usageStats = null;
-                for (int i = 0; i < queryUsageStats.size(); i++) {//在list中找出最后使用的app
-                    UsageStats usageStats1 = queryUsageStats.get(i);
-                    if (usageStats == null || usageStats.getLastTimeUsed() < usageStats1.getLastTimeUsed()) {
-                        usageStats = usageStats1;
-                    }
-                }
-                return usageStats.getPackageName();
-            }
-        } else {
-//        String foregroundProcessName = ProcessUtils.getForegroundProcessName();//不起作用
-
-            ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-            return manager.getRunningTasks(1).get(0).topActivity.getPackageName();
-        }
-        return null;
+        //华为手机 "HONOR V30" 获取不准确, 暂未找到解决方法...
+        return ProcessUtils.getForegroundProcessName();
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            long now = System.currentTimeMillis();
+//            UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+//            //获取60秒之内的应用数据
+//            List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 60 * 1000, now);
+//            if (queryUsageStats == null || queryUsageStats.isEmpty()) {// 没有权限，获取不到数据
+//                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//            } else {
+//                UsageStats usageStats = null;
+//                for (int i = 0; i < queryUsageStats.size(); i++) {//在list中找出最后使用的app
+//                    UsageStats usageStats1 = queryUsageStats.get(i);
+//                    if (usageStats == null || usageStats.getLastTimeUsed() < usageStats1.getLastTimeUsed()) {
+//                        usageStats = usageStats1;
+//                    }
+//                }
+//                return usageStats.getPackageName();
+//            }
+//        } else {
+//            ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//            return manager.getRunningTasks(1).get(0).topActivity.getPackageName();
+//        }
+//        return null;
     }
 
     @Override
