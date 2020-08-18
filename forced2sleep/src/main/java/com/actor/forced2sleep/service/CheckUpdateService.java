@@ -31,7 +31,6 @@ import okhttp3.Call;
  * 3.开启服务
  * startService(new Intent(this, CheckUpdateService.class));
  *
- * Company    : 重庆市了赢科技有限公司 http://www.liaoin.com/
  * Author     : 李大发
  * Date       : 2019/10/19 on 14:39
  *
@@ -104,7 +103,7 @@ public class CheckUpdateService extends Service {
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         }
         progressDialog.show();
-        MyOkHttpUtils.getFile(Global.DOWNLOAD_URL, new GetFileCallback(this, null, null) {
+        MyOkHttpUtils.getFile(Global.DOWNLOAD_URL, null, null, new GetFileCallback(this, null, null) {
 
             @Override
             public void inProgress(float progress, long total, int id) {
@@ -122,8 +121,9 @@ public class CheckUpdateService extends Service {
 
             @Override
             public void onError(int id, Call call, Exception e) {
-                super.onError(id, call, e);
+//                super.onError(id, call, e);
                 progressDialog.dismiss();
+                toast("下载出错, 请到Github下载!");
             }
         });
     }

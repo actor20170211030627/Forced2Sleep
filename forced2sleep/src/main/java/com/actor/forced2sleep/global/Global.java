@@ -39,10 +39,10 @@ public class Global {
         switch (hour) {
             case 7:
                 return minute < 30;//[07:00 ~ 07:30)
-            case 13:
-                return minute < 30;//[13:00 ~ 13:30)
-            case 22:
-                return minute > 30;//(22:30 ~ 23:00]
+//            case 13:
+//                return minute < 30;//[13:00 ~ 13:30)
+//            case 22:
+//                return minute > 30;//(22:30 ~ 23:00]
             default:
                 return false;
         }
