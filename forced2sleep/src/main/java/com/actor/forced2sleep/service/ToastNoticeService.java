@@ -2,12 +2,16 @@ package com.actor.forced2sleep.service;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
@@ -15,9 +19,11 @@ import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.service.BaseService;
 import com.actor.myandroidframework.utils.LogUtils;
 import com.actor.myandroidframework.utils.PermissionRequestUtils;
+import com.blankj.utilcode.util.NotificationUtils;
 import com.blankj.utilcode.util.ProcessUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 
 import java.util.List;
 
@@ -58,6 +64,33 @@ public class ToastNoticeService extends BaseService {
         handler.sendEmptyMessage(0);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             checkPermission();
+        }
+    }
+
+    @Override
+    protected void fitForegroundService() {
+//        super.fitForegroundService();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationUtils.notify(id, new Utils.Consumer<NotificationCompat.Builder>() {
+                @Override
+                public void accept(NotificationCompat.Builder builder) {
+                    RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.item_notification);
+                    Intent intent1 = new Intent(ToastNoticeService.this, ToastNoticeService.class);
+                    intent1.putExtra("command","CommandPlay");
+                    PendingIntent pIntent1 =  PendingIntent.getService(ToastNoticeService.this,
+                            5/*requestCode*/, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+                    remoteViews.setOnClickPendingIntent(R.id.ll, pIntent1);
+                    builder
+                            .setSmallIcon(R.drawable.logo)
+                            .setCustomContentView(remoteViews)
+                            .setVisibility(View.GONE);
+
+                    //高版本要调用这句, 否则过几秒后会退出
+                    startForeground(id, builder.build());
+                }
+            });
+        } else {
+            // TODO: 2020/5/19 适配低版本
         }
     }
 

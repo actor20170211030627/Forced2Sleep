@@ -7,8 +7,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         //noinspection HighAppVersionCode
-        versionCode 2020051601
-        versionName "1.1.6"
+        versionCode 2020102401
+        versionName "1.1.7"
     }
     signingConfigs {
         release {
@@ -37,7 +37,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
-//    implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:gridlayout-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
