@@ -3,6 +3,7 @@ package com.actor.forced2sleep.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.actor.forced2sleep.service.ToastNoticeService;
 import com.actor.forced2sleep.utils.LaunchSelfUtils;
 import com.actor.forced2sleep.utils.WhiteListUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.GsonUtils;
 import com.jaeger.library.StatusBarUtil;
 
 import butterknife.BindColor;
@@ -30,6 +32,7 @@ public class MainActivity extends BaseActivity {
 
     private AppLockDao appLockDao = AppLockDao.getInstance(this);
     private Snackbar snackbar;
+    private static final int REQUEST_BATTERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +108,7 @@ public class MainActivity extends BaseActivity {
         startForegroundService(new Intent(this, ToastNoticeService.class));
     }
 
-    @OnClick({R.id.btn_launch, R.id.btn_white, R.id.btn})
+    @OnClick({R.id.btn_launch, R.id.btn_battery_ignore, R.id.btn_white, R.id.btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_launch://开机启动
@@ -115,6 +118,13 @@ public class MainActivity extends BaseActivity {
                     openApk("com.iqoo.secure");//打开i管家
                 }
                 break;
+            case R.id.btn_battery_ignore://忽略电池优化
+                if (!WhiteListUtils.isIgnoringBatteryOptimizations(this)) {
+                    WhiteListUtils.requestIgnoreBatteryOptimizations(this, REQUEST_BATTERY);
+                } else {
+                    toast("已添加忽略电池优化");
+                }
+                break;
             case R.id.btn_white://白名单
                 boolean success1 = WhiteListUtils.gotoWhiteList(this);
                 if (!success1) {
@@ -122,15 +132,12 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn://确定
-                snackbar.setAction("退出", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        snackbar.dismiss();
-                        if (AppUtils.isAppDebug()) {
-                            startActivity(new Intent(activity, EnterPwdActivity.class));
-                        } else {
-                            onBackPressed();
-                        }
+                snackbar.setAction("退出", v -> {
+                    snackbar.dismiss();
+                    if (AppUtils.isAppDebug()) {
+                        startActivity(new Intent(activity, EnterPwdActivity.class));
+                    } else {
+                        onBackPressed();
                     }
                 }).setActionTextColor(redTransCC99).show();
                 break;
@@ -147,6 +154,15 @@ public class MainActivity extends BaseActivity {
 
     private void openApk(String packageName) {
         AppUtils.launchApp(packageName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        logFormat("requestCode=%d, resultCode=%d, data=%s", requestCode, resultCode, GsonUtils.toJson(data));
+        if (requestCode == REQUEST_BATTERY && resultCode == RESULT_OK) {
+            toast("忽略电池优化, 设置成功!");
+        }
     }
 
     @Override

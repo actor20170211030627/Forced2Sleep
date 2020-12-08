@@ -36,6 +36,15 @@
             android:text="开机启动(未完成,需自己开启)" />
 
         <Button
+            android:id="@+id/btn_battery_ignore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#cc99"
+            android:padding="10dp"
+            android:text="忽略电池优化" />
+
+        <Button
             android:id="@+id/btn_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
