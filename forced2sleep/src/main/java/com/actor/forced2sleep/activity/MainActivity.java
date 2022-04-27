@@ -3,45 +3,43 @@ package com.actor.forced2sleep.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
+
 import com.actor.forced2sleep.R;
+import com.actor.forced2sleep.databinding.ActivityMainBinding;
 import com.actor.forced2sleep.db.AppLockDao;
-import com.actor.forced2sleep.service.CheckUpdateService;
 import com.actor.forced2sleep.service.ToastNoticeService;
+import com.actor.forced2sleep.utils.CheckUpdateUtils;
 import com.actor.forced2sleep.utils.LaunchSelfUtils;
 import com.actor.forced2sleep.utils.WhiteListUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.GsonUtils;
-import com.jaeger.library.StatusBarUtil;
+import com.google.android.material.snackbar.Snackbar;
 
-import butterknife.BindColor;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
-    @BindView(R.id.btn)
-    Button btn;
-    @BindColor(R.color.red_trans_CC99)
-    int redTransCC99;
+    private Button btn;
+    private int redTransCC99;
+    private       Snackbar   snackbar;
 
-    private AppLockDao appLockDao = AppLockDao.getInstance(this);
-    private Snackbar snackbar;
-    private static final int REQUEST_BATTERY = 1;
+    private final AppLockDao appLockDao = AppLockDao.getInstance(this);
+    private static final int        REQUEST_BATTERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        StatusBarUtil.setTransparentForImageView(this, null);
+//        StatusBarUtil.setTransparentForImageView(this, null);
+        BarUtils.transparentStatusBar(this);
+        btn = viewBinding.btn;
+        redTransCC99 = getResources().getColor(R.color.red_trans_CC99);
 
-        intent = getIntent();
+        Intent intent = getIntent();
         if (intent != null) {
             Uri data = intent.getData();
             if (data != null) {
@@ -102,12 +100,13 @@ public class MainActivity extends BaseActivity {
         addPackageName("com.tencent.androidqqmail");//腾讯邮箱
         addPackageName("com.tencent.mm");//微信
         addPackageName("com.tencent.mobileqq");//QQ
-        addPackageName("longbin.helloworld");//计算器
 
-        startService(new Intent(this, CheckUpdateService.class));//检查更新
+        //检查更新
+        new CheckUpdateUtils().check(this);
         startForegroundService(new Intent(this, ToastNoticeService.class));
     }
 
+    @Override
     @OnClick({R.id.btn_launch, R.id.btn_battery_ignore, R.id.btn_white, R.id.btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -141,6 +140,12 @@ public class MainActivity extends BaseActivity {
                     }
                 }).setActionTextColor(redTransCC99).show();
                 break;
+            case R.id.btn_host_manage://手机Host管理
+                startActivity(new Intent(this, HostManageActivity.class));
+                break;
+            case R.id.btn_novel://小说
+                startActivity(new Intent(this, NovelActivity.class));
+                break;
             default:
                 break;
         }
@@ -163,11 +168,5 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_BATTERY && resultCode == RESULT_OK) {
             toast("忽略电池优化, 设置成功!");
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopService(new Intent(this, CheckUpdateService.class));
     }
 }

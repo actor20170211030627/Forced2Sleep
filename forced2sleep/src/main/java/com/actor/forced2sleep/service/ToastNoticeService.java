@@ -2,28 +2,30 @@ package com.actor.forced2sleep.service;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
-import android.view.View;
 import android.widget.RemoteViews;
+
+import androidx.core.app.NotificationCompat;
 
 import com.actor.forced2sleep.R;
 import com.actor.forced2sleep.db.AppLockDao;
 import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.service.BaseService;
 import com.actor.myandroidframework.utils.LogUtils;
-import com.actor.myandroidframework.utils.PermissionRequestUtils;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.NotificationUtils;
 import com.blankj.utilcode.util.ProcessUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.XXPermissions;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class ToastNoticeService extends BaseService {
     public  String                   toastContent;
 
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -83,7 +85,7 @@ public class ToastNoticeService extends BaseService {
                     builder
                             .setSmallIcon(R.drawable.logo)
                             .setCustomContentView(remoteViews)
-                            .setVisibility(View.GONE);
+                            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE);
 
                     //高版本要调用这句, 否则过几秒后会退出
                     startForeground(id, builder.build());
@@ -104,21 +106,23 @@ public class ToastNoticeService extends BaseService {
      * @return
      */
     private void checkPermission() {
+//        Context applicationContext = getApplicationContext();
+//        Context baseContext = getBaseContext();
+        Activity topActivity = ActivityUtils.getTopActivity();
         //我的华为手机一直返回 false, 原生代码也是一直返回 -1
         String permission = Manifest.permission.PACKAGE_USAGE_STATS;
-        PermissionRequestUtils.requestPermission(this, new PermissionRequestUtils.PermissionCallBack() {
+        XXPermissions.with(topActivity).permission(permission).request(new OnPermissionCallback() {
             @Override
-            public void onGranted(@NonNull List<String> deniedPermissions) {
-                LogUtils.error("onGranted: 同意权限", true);
+            public void onGranted(List<String> permissions, boolean all) {
+                LogUtils.error("onGranted: 同意权限");
             }
-
             @Override
-            public void onDenied(@NonNull List<String> deniedPermissions) {
+            public void onDenied(List<String> permissions, boolean never) {
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
-        }, permission);
+        });
     }
 
     //<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"

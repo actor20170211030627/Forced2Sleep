@@ -44,7 +44,7 @@
         android:textSize="18sp"
         tools:text="com.google.example" />
 
-    <android.support.v4.widget.Space
+    <androidx.core.widget.Space
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1" />

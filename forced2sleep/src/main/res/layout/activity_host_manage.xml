@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.HostManageActivity">
+
+    <Button
+        android:id="@+id/btn_print_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onViewClicked"
+        android:text="开始连接, 打印 ip" />
+
+    <Button
+        android:id="@+id/btn_add_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onViewClicked"
+        android:text="停止vpn, add ip" />
+
+    <Button
+        android:id="@+id/btn_is_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onViewClicked"
+        android:text="判断vpn" />
+</androidx.appcompat.widget.LinearLayoutCompat>

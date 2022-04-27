@@ -1,11 +1,12 @@
 package com.actor.forced2sleep.application;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.actor.forced2sleep.global.Global;
 import com.actor.myandroidframework.application.ActorApplication;
-
-import java.util.concurrent.TimeUnit;
+import com.actor.myandroidframework.utils.database.GreenDaoUtils;
+import com.greendao.gen.NovelBeanDao;
 
 import okhttp3.OkHttpClient;
 
@@ -20,24 +21,23 @@ public class MyApplication extends ActorApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        GreenDaoUtils.init(this, isAppDebug(), "ban_url.db3", null, NovelBeanDao.class);
     }
 
     @Nullable
     @Override
     protected OkHttpClient.Builder configOkHttpClientBuilder(OkHttpClient.Builder builder) {
-        return builder.connectTimeout(60_000L, TimeUnit.MILLISECONDS)
-                .readTimeout(60_000L, TimeUnit.MILLISECONDS)
-                .writeTimeout(60_000L, TimeUnit.MILLISECONDS);
+        return builder;
     }
 
     @NonNull
     @Override
-    protected String getBaseUrl() {
-        return "https://api.github.com";
+    protected String getBaseUrl(boolean isDebugMode) {
+        return Global.BASE_URL;
     }
 
     @Override
-    protected void onUncaughtException(Thread thread, Throwable e) {
+    protected void onUncaughtException(Throwable e) {
 //        System.exit(-1);//退出
     }
 }

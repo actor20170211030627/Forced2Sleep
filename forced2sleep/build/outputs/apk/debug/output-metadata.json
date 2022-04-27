@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.actor.forced2sleep",
+  "variantName": "debug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 2020102401,
+      "versionName": "1.1.7",
+      "enabled": true,
+      "outputFile": "Forced2Sleep_1.1.7.apk"
+    }
+  ]
+}

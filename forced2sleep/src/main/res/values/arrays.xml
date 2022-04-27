@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 搜索引擎参考: https://blog.csdn.net/tancheng/article/details/123529319 -->
+    <string-array name="search_engine">
+        <item>百度</item>
+        <item>Bing</item>
+        <item>360(暂未实现)</item>
+    </string-array>
+</resources>

@@ -8,7 +8,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.actor.myandroidframework.utils.LogUtils;
 import com.blankj.utilcode.util.RomUtils;
@@ -58,7 +59,7 @@ public class WhiteListUtils {
      */
     public static boolean gotoWhiteList(Context context) {
         String phoneType = RomUtils.getRomInfo().getName();
-        LogUtils.error("当前手机型号为：" + phoneType, true);
+        LogUtils.error("当前手机型号为：" + phoneType);
 
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

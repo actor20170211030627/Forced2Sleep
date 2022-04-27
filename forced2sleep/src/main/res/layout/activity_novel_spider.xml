@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.NovelSpiderActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.actor.myandroidframework.widget.ItemTextInputLayout
+            android:id="@+id/itil_novel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:itilImeOptions="actionNext"
+            app:itilInputType="text"
+            app:itilItemName="小说名称: "
+            tools:itilText="长夜余火" />
+
+        <com.actor.myandroidframework.widget.ItemTextInputLayout
+            android:id="@+id/itil_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itilDigits="@string/digits_phone"
+            app:itilImeOptions="actionDone"
+            app:itilInputType="number"
+            app:itilItemName="搜索第几页: "
+            app:itilMaxLength="2"
+            app:itilText="1" />
+
+        <com.actor.myandroidframework.widget.ItemSpinnerLayout
+            android:id="@+id/isl_engine_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:islEntries="@array/search_engine"
+            app:islItemName="搜索引擎: " />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="onViewClicked"
+            android:text="开始搜索" />
+
+        <com.actor.myandroidframework.widget.ItemTextInputLayout
+            android:id="@+id/itil_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itilArrowRightVisiable="gone"
+            app:itilInputEnable="false"
+            app:itilItemName="搜索结果: "
+            tools:itilText="www.biquge.sh" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="手动添加:"
+            android:textColor="@color/red_trans_CC99"
+            android:textSize="18sp" />
+
+        <com.actor.myandroidframework.widget.ItemTextInputLayout
+            android:id="@+id/itil_hand_input_webname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itilHint="请输入网址名称,例:起点中文网"
+            app:itilImeOptions="actionDone"
+            app:itilInputType="text"
+            app:itilItemName="网址名称: " />
+
+        <com.actor.myandroidframework.widget.ItemTextInputLayout
+            android:id="@+id/itil_hand_input_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itilHint="请输入网址,例:www.baidu.com"
+            app:itilImeOptions="actionDone"
+            app:itilInputType="text"
+            app:itilItemName="网址: " />
+
+        <Button
+            android:id="@+id/btn_add2db"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="onViewClicked"
+            android:text="手动添加到数据库" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

@@ -2,7 +2,8 @@ package com.actor.forced2sleep.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 /**
  * Description: 类的描述

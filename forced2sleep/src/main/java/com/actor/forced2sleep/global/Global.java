@@ -10,6 +10,8 @@ import java.util.Calendar;
 
 public class Global {
 
+    public static final String BASE_URL = "https://api.github.com";
+
     public static final String CHECK_UPDATE = "https://gitee.com/actor20170211030627/" +
             "Forced2Sleep" +//项目名
             "/raw/master/" +
@@ -50,4 +52,5 @@ public class Global {
 
     public static final String APP_SKIP_10MIN = "APP_SKIP_10MIN";//跳过10分钟的app
     public static final String PACKAGE_NAME = "PACKAGE_NAME";
+    public static final String NOVEL_NAME = "NOVEL_NAME";
 }
